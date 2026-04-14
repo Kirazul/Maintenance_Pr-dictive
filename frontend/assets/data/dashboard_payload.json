@@ -1,0 +1,334 @@
+{
+  "hero": {
+    "title": "Predictive Maintenance Intelligence",
+    "subtitle": "Live maintenance risk monitoring, alert quality, and model diagnostics in one cinematic control room."
+  },
+  "model": {
+    "name": "RandomForest",
+    "metrics": {
+      "accuracy": 0.961,
+      "balanced_accuracy": 0.9301546705638777,
+      "precision": 0.4621212121212121,
+      "recall": 0.8970588235294118,
+      "f1": 0.61,
+      "roc_auc": 0.9784397454634027,
+      "average_precision": 0.8427208372170278
+    },
+    "feature_count": 16,
+    "numeric_features": [
+      "air_temp_k",
+      "process_temp_k",
+      "rotational_speed_rpm",
+      "torque_nm",
+      "tool_wear_min",
+      "temp_delta_k",
+      "power_proxy",
+      "wear_power_ratio",
+      "torque_speed_ratio",
+      "thermal_load",
+      "wear_temp_stress",
+      "high_torque_flag",
+      "low_speed_flag"
+    ],
+    "categorical_features": [
+      "product_type",
+      "source_dataset",
+      "wear_risk_band"
+    ]
+  },
+  "evaluation": {
+    "model_name": "RandomForest",
+    "classification_metrics": {
+      "accuracy": 0.961,
+      "balanced_accuracy": 0.9301546705638777,
+      "precision": 0.4621212121212121,
+      "recall": 0.8970588235294118,
+      "f1": 0.61,
+      "roc_auc": 0.9784397454634027,
+      "average_precision": 0.8427208372170278
+    },
+    "confusion_matrix": {
+      "tn": 1861,
+      "fp": 71,
+      "fn": 7,
+      "tp": 61
+    },
+    "operations_metrics": {
+      "alert_rate": 0.066,
+      "failure_prevalence": 0.034,
+      "captured_failures": 0.8970588235294118,
+      "false_alarm_share": 0.5378787878787878,
+      "operational_score": 0.9301546705638777,
+      "recommended_threshold": 0.1
+    },
+    "threshold_curve": [
+      {
+        "threshold": 0.1,
+        "balanced_accuracy": 0.9301546705638777,
+        "precision": 0.4621212121212121,
+        "recall": 0.8970588235294118,
+        "f1": 0.61,
+        "alert_rate": 0.066
+      },
+      {
+        "threshold": 0.15,
+        "balanced_accuracy": 0.924765558397272,
+        "precision": 0.6276595744680851,
+        "recall": 0.8676470588235294,
+        "f1": 0.7283950617283951,
+        "alert_rate": 0.047
+      },
+      {
+        "threshold": 0.2,
+        "balanced_accuracy": 0.9220710023139691,
+        "precision": 0.7733333333333333,
+        "recall": 0.8529411764705882,
+        "f1": 0.8111888111888111,
+        "alert_rate": 0.0375
+      },
+      {
+        "threshold": 0.25,
+        "balanced_accuracy": 0.9162708561685544,
+        "precision": 0.8382352941176471,
+        "recall": 0.8382352941176471,
+        "f1": 0.8382352941176471,
+        "alert_rate": 0.034
+      },
+      {
+        "threshold": 0.3,
+        "balanced_accuracy": 0.9091767141639264,
+        "precision": 0.8484848484848485,
+        "recall": 0.8235294117647058,
+        "f1": 0.835820895522388,
+        "alert_rate": 0.033
+      },
+      {
+        "threshold": 0.35,
+        "balanced_accuracy": 0.9020825721592984,
+        "precision": 0.859375,
+        "recall": 0.8088235294117647,
+        "f1": 0.8333333333333334,
+        "alert_rate": 0.032
+      },
+      {
+        "threshold": 0.4,
+        "balanced_accuracy": 0.8742236024844721,
+        "precision": 0.9444444444444444,
+        "recall": 0.75,
+        "f1": 0.8360655737704918,
+        "alert_rate": 0.027
+      },
+      {
+        "threshold": 0.45,
+        "balanced_accuracy": 0.8595177201315309,
+        "precision": 0.9423076923076923,
+        "recall": 0.7205882352941176,
+        "f1": 0.8166666666666667,
+        "alert_rate": 0.026
+      },
+      {
+        "threshold": 0.5,
+        "balanced_accuracy": 0.8448118377785897,
+        "precision": 0.94,
+        "recall": 0.6911764705882353,
+        "f1": 0.7966101694915254,
+        "alert_rate": 0.025
+      },
+      {
+        "threshold": 0.55,
+        "balanced_accuracy": 0.8303647545974912,
+        "precision": 0.9574468085106383,
+        "recall": 0.6617647058823529,
+        "f1": 0.782608695652174,
+        "alert_rate": 0.0235
+      },
+      {
+        "threshold": 0.6,
+        "balanced_accuracy": 0.7715412251857264,
+        "precision": 0.9487179487179487,
+        "recall": 0.5441176470588235,
+        "f1": 0.6915887850467289,
+        "alert_rate": 0.0195
+      },
+      {
+        "threshold": 0.65,
+        "balanced_accuracy": 0.7494824016563146,
+        "precision": 0.9444444444444444,
+        "recall": 0.5,
+        "f1": 0.6538461538461539,
+        "alert_rate": 0.018
+      },
+      {
+        "threshold": 0.7,
+        "balanced_accuracy": 0.6980118134210206,
+        "precision": 0.9310344827586207,
+        "recall": 0.39705882352941174,
+        "f1": 0.5567010309278351,
+        "alert_rate": 0.0145
+      },
+      {
+        "threshold": 0.75,
+        "balanced_accuracy": 0.6612471075386677,
+        "precision": 0.9166666666666666,
+        "recall": 0.3235294117647059,
+        "f1": 0.4782608695652174,
+        "alert_rate": 0.012
+      },
+      {
+        "threshold": 0.8,
+        "balanced_accuracy": 0.6244824016563146,
+        "precision": 0.8947368421052632,
+        "recall": 0.25,
+        "f1": 0.39080459770114945,
+        "alert_rate": 0.0095
+      },
+      {
+        "threshold": 0.85,
+        "balanced_accuracy": 0.5879764949458044,
+        "precision": 0.9230769230769231,
+        "recall": 0.17647058823529413,
+        "f1": 0.2962962962962963,
+        "alert_rate": 0.0065
+      },
+      {
+        "threshold": 0.9,
+        "balanced_accuracy": 0.5441176470588235,
+        "precision": 1.0,
+        "recall": 0.08823529411764706,
+        "f1": 0.16216216216216217,
+        "alert_rate": 0.003
+      }
+    ]
+  },
+  "leaderboard": [
+    {
+      "model_name": "RandomForest",
+      "threshold": 0.1,
+      "validation_accuracy": 0.961,
+      "validation_balanced_accuracy": 0.908872244549994,
+      "validation_precision": 0.4603174603174603,
+      "validation_recall": 0.8529411764705882,
+      "validation_f1": 0.5979381443298969,
+      "validation_roc_auc": 0.9688793995859212,
+      "validation_average_precision": 0.8273678177156374,
+      "test_accuracy": 0.959,
+      "test_balanced_accuracy": 0.9291194738765072,
+      "test_precision": 0.4485294117647059,
+      "test_recall": 0.8970588235294118,
+      "test_f1": 0.5980392156862745,
+      "test_roc_auc": 0.9753722141030324,
+      "test_average_precision": 0.8370809734294258
+    },
+    {
+      "model_name": "GradientBoosting",
+      "threshold": 0.1,
+      "validation_accuracy": 0.9815,
+      "validation_balanced_accuracy": 0.8982005845816587,
+      "validation_precision": 0.6962025316455697,
+      "validation_recall": 0.8088235294117647,
+      "validation_f1": 0.7482993197278912,
+      "validation_roc_auc": 0.9864472963098284,
+      "validation_average_precision": 0.8594017707339294,
+      "test_accuracy": 0.9835,
+      "test_balanced_accuracy": 0.9276123492875412,
+      "test_precision": 0.7108433734939759,
+      "test_recall": 0.8676470588235294,
+      "test_f1": 0.7814569536423841,
+      "test_roc_auc": 0.978980179028133,
+      "test_average_precision": 0.8950319402622671
+    },
+    {
+      "model_name": "LogisticRegression",
+      "threshold": 0.45,
+      "validation_accuracy": 0.8585,
+      "validation_balanced_accuracy": 0.8841949823407624,
+      "validation_precision": 0.1828908554572271,
+      "validation_recall": 0.9117647058823528,
+      "validation_f1": 0.3046683046683047,
+      "validation_roc_auc": 0.945203081232493,
+      "validation_average_precision": 0.4703777603263194,
+      "test_accuracy": 0.8665,
+      "test_balanced_accuracy": 0.8812416270856169,
+      "test_precision": 0.190031152647975,
+      "test_recall": 0.8970588235294118,
+      "test_f1": 0.313624678663239,
+      "test_roc_auc": 0.9474942150773352,
+      "test_average_precision": 0.53016888306244
+    },
+    {
+      "model_name": "ExtraTrees",
+      "threshold": 0.1,
+      "validation_accuracy": 0.947,
+      "validation_balanced_accuracy": 0.880343441724516,
+      "validation_precision": 0.3716216216216216,
+      "validation_recall": 0.8088235294117647,
+      "validation_f1": 0.5092592592592593,
+      "validation_roc_auc": 0.9654503105590062,
+      "validation_average_precision": 0.7636908481404694,
+      "test_accuracy": 0.95,
+      "test_balanced_accuracy": 0.8960845207648277,
+      "test_precision": 0.3904109589041096,
+      "test_recall": 0.8382352941176471,
+      "test_f1": 0.5327102803738317,
+      "test_roc_auc": 0.9772979844111558,
+      "test_average_precision": 0.7847653298367645
+    }
+  ],
+  "workflow": {
+    "stages": [
+      {
+        "id": "01",
+        "name": "Dataset Discovery",
+        "path": "pipeline/01_dataset_discovery.py"
+      },
+      {
+        "id": "02",
+        "name": "Dataset Cleaning",
+        "path": "pipeline/02_dataset_cleaning.py"
+      },
+      {
+        "id": "03",
+        "name": "Training Dataset Preparation",
+        "path": "pipeline/03_training_dataset_preparation.py"
+      },
+      {
+        "id": "04",
+        "name": "Feature Engineering",
+        "path": "pipeline/04_feature_engineering.py"
+      },
+      {
+        "id": "05",
+        "name": "Model Training",
+        "path": "pipeline/05_model_training.py"
+      },
+      {
+        "id": "06",
+        "name": "Model Evaluation",
+        "path": "pipeline/06_model_evaluation.py"
+      },
+      {
+        "id": "07",
+        "name": "Frontend Exports",
+        "path": "pipeline/07_frontend_exports.py"
+      }
+    ],
+    "snippets": [
+      {
+        "path": "pipeline/02_dataset_cleaning.py",
+        "content": "from __future__ import annotations\n\nfrom workflow import canonicalize_frames, clean_dataset, load_raw_frames, write_json\nfrom paths import ensure_runtime_dirs, stage_dir\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    output_dir = stage_dir(\"02_cleaning\")\n    raw_frames = load_raw_frames()\n    canonical = canonicalize_frames(raw_frames)\n    cleaned_df = clean_dataset(canonical)\n    cleaned_path = output_dir / \"02_cleaned_dataset.csv\"\n    cleaned_df.to_csv(cleaned_path, index=False)\n\n    report = {\n        \"rows\": int(cleaned_df.shape[0]),\n        \"columns\": int(cleaned_df.shape[1]),\n        \"target_positive_rate\": float(cleaned_df[\"machine_failure\"].mean()),\n        \"source_mix\": cleaned_df[\"source_dataset\"].value_counts().to_dict(),\n        \"failure_mix\": cleaned_df[\"failure_family\"].value_counts().head(10).to_dict(),\n        \"null_counts\": cleaned_df.isna().sum().sort_values(ascending=False).head(10).to_dict(),\n    }\n    write_json(output_dir / \"02_cleaning_report.json\", report)\n\n\nif __name__ == \"__main__\":\n    main()"
+      },
+      {
+        "path": "pipeline/04_feature_engineering.py",
+        "content": "from __future__ import annotations\n\nimport pandas as pd\n\nfrom paths import ensure_runtime_dirs, stage_dir\nfrom workflow import engineer_features, feature_columns, write_json\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    input_dir = stage_dir(\"03_training_dataset\")\n    output_dir = stage_dir(\"04_feature_engineering\")\n\n    datasets = {\n        \"train\": pd.read_csv(input_dir / \"train_data.csv\"),\n        \"validation\": pd.read_csv(input_dir / \"validation_data.csv\"),\n        \"test\": pd.read_csv(input_dir / \"test_data.csv\"),\n    }\n    engineered = {name: engineer_features(frame) for name, frame in datasets.items()}\n\n    for name, frame in engineered.items():\n        frame.to_csv(output_dir / f\"{name}_features.csv\", index=False)\n\n    numeric, categorical = feature_columns(engineered[\"train\"])\n    feature_snapshot = {\n        \"training_rows\": int(engineered[\"train\"].shape[0]),\n        \"numeric_feature_count\": len(numeric),\n        \"categorical_feature_count\": len(categorical),\n        \"numeric_features\": numeric,\n        \"categorical_features\": categorical,\n        \"positive_rate\": float(engineered[\"train\"][\"machine_failure\"].mean()),\n    }\n    write_json(output_dir / \"04_feature_engineering_report.json\", feature_snapshot)\n\n\nif __name__ == \"__main__\":\n    main()"
+      },
+      {
+        "path": "pipeline/05_model_training.py",
+        "content": "from __future__ import annotations\n\nimport pandas as pd\n\nfrom paths import ensure_runtime_dirs, stage_dir\nfrom workflow import train_model_suite, write_json\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    data_dir = stage_dir(\"04_feature_engineering\")\n    output_dir = stage_dir(\"05_model_training\")\n\n    train_df = pd.read_csv(data_dir / \"train_features.csv\")\n    validation_df = pd.read_csv(data_dir / \"validation_features.csv\")\n    test_df = pd.read_csv(data_dir / \"test_features.csv\")\n\n    results, artifact = train_model_suite(train_df, validation_df, test_df)\n    leaderboard = pd.DataFrame(\n        [\n            {\n                \"model_name\": result.name,\n                \"threshold\": result.threshold,\n                \"validation_accuracy\": result.validation_metrics[\"accuracy\"],\n                \"validation_balanced_accuracy\": result.validation_metrics[\"balanced_accuracy\"],\n                \"validation_precision\": result.validation_metrics[\"precision\"],\n                \"validation_recall\": result.validation_metrics[\"recall\"],\n                \"validation_f1\": result.validation_metrics[\"f1\"],\n                \"validation_roc_auc\": result.validation_metrics[\"roc_auc\"],\n                \"validation_average_precision\": result.validation_metrics[\"average_precision\"],\n                \"test_accuracy\": result.test_metrics[\"accuracy\"],\n                \"test_balanced_accuracy\": result.test_metrics[\"balanced_accuracy\"],\n                \"test_precision\": result.test_metrics[\"precision\"],\n                \"test_recall\": result.test_metrics[\"recall\"],\n                \"test_f1\": result.test_metrics[\"f1\"],\n                \"test_roc_auc\": result.test_metrics[\"roc_auc\"],\n                \"test_average_precision\": result.test_metrics[\"average_precision\"],\n            }\n            for result in results\n        ]\n    )\n    leaderboard.to_csv(output_dir / \"05_leaderboard.csv\", index=False)\n\n    report = {\n        \"best_model\": artifact[\"model_name\"],\n        \"metrics\": artifact[\"test_metrics\"],\n        \"feature_count\": len(artifact[\"numeric_features\"]) + len(artifact[\"categorical_features\"]),\n        \"numeric_features\": artifact[\"numeric_features\"],\n        \"categorical_features\": artifact[\"categorical_features\"],\n        \"threshold\": artifact[\"threshold\"],\n        \"headline_metric\": \"balanced_accuracy\",\n        \"leaderboard_preview\": leaderboard.to_dict(orient=\"records\"),\n    }\n    write_json(output_dir / \"05_model_training_report.json\", report)\n\n\nif __name__ == \"__main__\":\n    main()"
+      },
+      {
+        "path": "api/app.py",
+        "content": "from __future__ import annotations\n\nimport json\nfrom pathlib import Path\n\nimport joblib\nimport pandas as pd\nfrom fastapi import FastAPI, HTTPException\nfrom fastapi.responses import FileResponse\nfrom fastapi.staticfiles import StaticFiles\nfrom pydantic import BaseModel, Field\n\n\nPROJECT_ROOT = Path(__file__).resolve().parents[1]\nFRONTEND_DIR = PROJECT_ROOT / \"frontend\"\nDATASET_PATH = PROJECT_ROOT / \"data\" / \"processed\" / \"03_training_dataset\" / \"test_data.csv\"\nMODEL_PATH = PROJECT_ROOT / \"artifacts\" / \"05_best_model.joblib\"\nPAYLOAD_PATH = FRONTEND_DIR / \"assets\" / \"data\" / \"dashboard_payload.json\"\nSUMMARY_PATH = FRONTEND_DIR / \"model_summary.json\"\n\n\napp = FastAPI(title=\"Predictive Maintenance Intelligence API\", version=\"1.0.0\")\napp.mount(\"/assets\", StaticFiles(directory=str(FRONTEND_DIR / \"assets\")), name=\"assets\")\napp.mount(\"/css\", StaticFiles(directory=str(FRONTEND_DIR / \"css\")), name=\"css\")\napp.mount(\"/js\", StaticFiles(directory=str(FRONTEND_DIR / \"js\")), name=\"js\")\n\n\nclass PredictionRequest(BaseModel):\n    air_temp_k: float\n    process_temp_k: float\n    rotational_speed: float\n    torque: float\n    tool_wear: float\n    product_type: str = \"M\"\n    source_dataset: str = \"machine\"\n\n\ndef _load_artifact() -> dict:\n    if not MODEL_PATH.exists():\n        raise HTTPException(status_code=503, detail=\"Model artifact not found. Run pipeline first.\")\n    return joblib.load(MODEL_PATH)\n\n\ndef _prepare_frame(payload: PredictionRequest, numeric_features: list[str], categorical_features: list[str]) -> pd.DataFrame:\n    row = {\n        \"air_temp_k\": payload.air_temp_k,\n        \"process_temp_k\": payload.process_temp_k,\n        \"rotational_speed_rpm\": payload.rotational_speed,\n        \"torque_nm\": payload.torque,\n        \"tool_wear_min\": payload.tool_wear,\n        \"product_type\": payload.product_type,\n        \"source_dataset\": payload.source_dataset,\n    }\n    row[\"temp_delta_k\"] = row[\"process_temp_k\"] - row[\"air_temp_k\"]\n    row[\"power_proxy\"] = row[\"rotational_speed_rpm\"] * row[\"torque_nm\"]\n    row[\"wear_power_ratio\"] = row[\"tool_wear_min\"] / (abs(row[\"power_proxy\"]) + 1.0)\n    row[\"torque_speed_ratio\"] = row[\"torque_nm\"] / (abs(row[\"rotational_speed_rpm\"]) + 1.0)\n    row[\"thermal_load\"] = row[\"temp_delta_k\"] * row[\"torque_nm\"]\n    row[\"wear_temp_stress\"] = row[\"tool_wear_min\"] * row[\"temp_delta_k\"]\n    row[\"high_torque_flag\"] = int(row[\"torque_nm\"] >= 55)"
+      }
+    ]
+  }
+}

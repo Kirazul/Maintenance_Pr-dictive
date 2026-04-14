@@ -1,0 +1,151 @@
+{
+  "shape": [
+    10000,
+    10
+  ],
+  "columns": [
+    "UDI",
+    "Product ID",
+    "Type",
+    "Air temperature [K]",
+    "Process temperature [K]",
+    "Rotational speed [rpm]",
+    "Torque [Nm]",
+    "Tool wear [min]",
+    "Target",
+    "Failure Type"
+  ],
+  "dtypes": {
+    "UDI": "int64",
+    "Product ID": "object",
+    "Type": "object",
+    "Air temperature [K]": "float64",
+    "Process temperature [K]": "float64",
+    "Rotational speed [rpm]": "int64",
+    "Torque [Nm]": "float64",
+    "Tool wear [min]": "int64",
+    "Target": "int64",
+    "Failure Type": "object"
+  },
+  "memory_usage": 2.3298397064208984,
+  "missing_values": {
+    "UDI": 0,
+    "Product ID": 0,
+    "Type": 0,
+    "Air temperature [K]": 0,
+    "Process temperature [K]": 0,
+    "Rotational speed [rpm]": 0,
+    "Torque [Nm]": 0,
+    "Tool wear [min]": 0,
+    "Target": 0,
+    "Failure Type": 0
+  },
+  "numeric_summary": {
+    "UDI": {
+      "count": 10000.0,
+      "mean": 5000.5,
+      "std": 2886.8956799071675,
+      "min": 1.0,
+      "25%": 2500.75,
+      "50%": 5000.5,
+      "75%": 7500.25,
+      "max": 10000.0
+    },
+    "Air temperature [K]": {
+      "count": 10000.0,
+      "mean": 300.00493,
+      "std": 2.000258682915751,
+      "min": 295.3,
+      "25%": 298.3,
+      "50%": 300.1,
+      "75%": 301.5,
+      "max": 304.5
+    },
+    "Process temperature [K]": {
+      "count": 10000.0,
+      "mean": 310.00556,
+      "std": 1.4837342191657208,
+      "min": 305.7,
+      "25%": 308.8,
+      "50%": 310.1,
+      "75%": 311.1,
+      "max": 313.8
+    },
+    "Rotational speed [rpm]": {
+      "count": 10000.0,
+      "mean": 1538.7761,
+      "std": 179.2840959134266,
+      "min": 1168.0,
+      "25%": 1423.0,
+      "50%": 1503.0,
+      "75%": 1612.0,
+      "max": 2886.0
+    },
+    "Torque [Nm]": {
+      "count": 10000.0,
+      "mean": 39.986909999999995,
+      "std": 9.968933725121337,
+      "min": 3.8,
+      "25%": 33.2,
+      "50%": 40.1,
+      "75%": 46.8,
+      "max": 76.6
+    },
+    "Tool wear [min]": {
+      "count": 10000.0,
+      "mean": 107.951,
+      "std": 63.654146636636355,
+      "min": 0.0,
+      "25%": 53.0,
+      "50%": 108.0,
+      "75%": 162.0,
+      "max": 253.0
+    },
+    "Target": {
+      "count": 10000.0,
+      "mean": 0.0339,
+      "std": 0.18098084265065364,
+      "min": 0.0,
+      "25%": 0.0,
+      "50%": 0.0,
+      "75%": 0.0,
+      "max": 1.0
+    }
+  },
+  "categorical_summary": {
+    "Product ID": {
+      "unique_count": 10000,
+      "top_values": {
+        "M14860": 1,
+        "L53850": 1,
+        "L53843": 1,
+        "L53844": 1,
+        "L53845": 1,
+        "L53846": 1,
+        "H36081": 1,
+        "L53848": 1,
+        "L53849": 1,
+        "L53851": 1
+      }
+    },
+    "Type": {
+      "unique_count": 3,
+      "top_values": {
+        "L": 6000,
+        "M": 2997,
+        "H": 1003
+      }
+    },
+    "Failure Type": {
+      "unique_count": 6,
+      "top_values": {
+        "No Failure": 9652,
+        "Heat Dissipation Failure": 112,
+        "Power Failure": 95,
+        "Overstrain Failure": 78,
+        "Tool Wear Failure": 45,
+        "Random Failures": 18
+      }
+    }
+  }
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predictive Maintenance Intelligence Presentation</title>
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    <link rel="stylesheet" href="css/style.css?v=4.1">
+</head>
+<body class="presentation-body">
+    <div id="bg-layer"></div>
+    <div id="vignette"></div>
+    <div id="grid-overlay"></div>
+    <div id="page-wipe"></div>
+
+    <div class="top-nav">
+        <div class="nav-cluster">
+            <a href="/" class="nav-btn route-link">CONTROL ROOM</a>
+        </div>
+        <div class="nav-cluster">
+            <div class="nav-meta glass">Presentation Mode</div>
+            <a href="/notebook" class="nav-btn primary route-link">ML LAB</a>
+        </div>
+    </div>
+
+    <main class="presentation-shell">
+        <section class="presentation-stage glass" id="presentation-stage">
+            <div class="presentation-topline">
+                <span class="presentation-badge">Presentation Mode</span>
+                <span class="presentation-badge">Maintenance Intelligence Deck</span>
+            </div>
+
+            <div class="presentation-slide-grid">
+                <section class="presentation-hero-card glass">
+                    <span class="tag">Slide 01</span>
+                    <h1>Predictive Maintenance <span>Intelligence</span></h1>
+                    <p>A production-ready maintenance product with calibrated risk scoring, threshold-aware intervention policy, and an interactive ML lab for full workflow traceability.</p>
+                </section>
+
+                <section class="presentation-metric-card glass">
+                    <span class="tag">Operational Score</span>
+                    <strong id="deck-operational-score">--</strong>
+                    <p>Balanced accuracy at the selected decision threshold.</p>
+                </section>
+
+                <section class="presentation-metric-card glass">
+                    <span class="tag">Failure Capture</span>
+                    <strong id="deck-capture-rate">--</strong>
+                    <p>Share of failures detected by the live policy.</p>
+                </section>
+
+                <section class="presentation-metric-card glass">
+                    <span class="tag">Alert Rate</span>
+                    <strong id="deck-alert-rate">--</strong>
+                    <p>Operational burden created by the current threshold.</p>
+                </section>
+
+                <section class="presentation-panel glass span-2">
+                    <span class="tag">System Story</span>
+                    <h2>What Changed</h2>
+                    <div class="presentation-list" id="deck-story-list"></div>
+                </section>
+
+                <section class="presentation-panel glass span-2">
+                    <span class="tag">Model Board</span>
+                    <h2>Current Leaderboard</h2>
+                    <div id="deck-leaderboard" class="leaderboard"></div>
+                </section>
+
+                <section class="presentation-panel glass span-4">
+                    <span class="tag">Threshold Sweep</span>
+                    <h2>Operating Policy</h2>
+                    <div id="deck-thresholds" class="leaderboard"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function loadDeck() {
+            const summary = await fetch('/model_summary').then((r) => r.json());
+            const dashboard = await fetch('/dashboard').then((r) => r.json());
+
+            document.getElementById('deck-operational-score').textContent = Number(summary.operational_score).toFixed(4);
+            document.getElementById('deck-capture-rate').textContent = `${(Number(summary.captured_failures) * 100).toFixed(1)}%`;
+            document.getElementById('deck-alert-rate').textContent = `${(Number(summary.alert_rate) * 100).toFixed(1)}%`;
+
+            const story = [
+                'Merged duplicated raw sources into one canonical machine dataset.',
+                'Removed leakage paths from training and split design.',
+                'Selected operating threshold on validation instead of relying on 0.5 by default.',
+                'Exposed the workflow through a control room, presentation mode, and executable ML lab.',
+            ];
+            const storyList = document.getElementById('deck-story-list');
+            story.forEach((item) => {
+                const row = document.createElement('div');
+                row.className = 'mini-row';
+                row.innerHTML = `<span>Insight</span><strong>${item}</strong>`;
+                storyList.appendChild(row);
+            });
+
+            const leaderboard = document.getElementById('deck-leaderboard');
+            dashboard.leaderboard.slice(0, 4).forEach((row) => {
+                const node = document.createElement('div');
+                node.className = 'leaderboard-row';
+                node.innerHTML = `
+                    <div><span class="label">Model</span><span class="value">${row.model_name}</span></div>
+                    <div><span class="label">Val Balanced</span><span class="value">${Number(row.validation_balanced_accuracy).toFixed(4)}</span></div>
+                    <div><span class="label">Test F1</span><span class="value">${Number(row.test_f1).toFixed(4)}</span></div>
+                    <div><span class="label">Test AUC</span><span class="value">${Number(row.test_roc_auc).toFixed(4)}</span></div>`;
+                leaderboard.appendChild(node);
+            });
+
+            const thresholds = document.getElementById('deck-thresholds');
+            dashboard.evaluation.threshold_curve.slice(0, 6).forEach((row) => {
+                const node = document.createElement('div');
+                node.className = 'leaderboard-row';
+                node.innerHTML = `
+                    <div><span class="label">Threshold</span><span class="value">${row.threshold}</span></div>
+                    <div><span class="label">Balanced Accuracy</span><span class="value">${Number(row.balanced_accuracy).toFixed(3)}</span></div>
+                    <div><span class="label">Precision</span><span class="value">${Number(row.precision).toFixed(3)}</span></div>
+                    <div><span class="label">Recall</span><span class="value">${Number(row.recall).toFixed(3)}</span></div>`;
+                thresholds.appendChild(node);
+            });
+        }
+        document.querySelectorAll('.route-link').forEach((link) => {
+            link.addEventListener('click', (event) => {
+                event.preventDefault();
+                const wipe = document.getElementById('page-wipe');
+                if (wipe) wipe.classList.add('active');
+                document.body.classList.add('page-exit');
+                setTimeout(() => { window.location.href = link.href; }, 360);
+            });
+        });
+        loadDeck();
+    </script>
+</body>
+</html>

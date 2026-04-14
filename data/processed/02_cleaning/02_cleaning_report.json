@@ -1,0 +1,28 @@
+{
+  "rows": 10000,
+  "columns": 17,
+  "target_positive_rate": 0.0339,
+  "source_mix": {
+    "merged": 10000
+  },
+  "failure_mix": {
+    "No Failure": 9652,
+    "Heat Dissipation Failure": 112,
+    "Power Failure": 95,
+    "Overstrain Failure": 78,
+    "Tool Wear Failure": 45,
+    "Random Failures": 18
+  },
+  "null_counts": {
+    "udi": 0,
+    "failure_type": 0,
+    "rnf": 0,
+    "osf": 0,
+    "pwf": 0,
+    "hdf": 0,
+    "twf": 0,
+    "source_dataset": 0,
+    "machine_failure": 0,
+    "product_id": 0
+  }
+}
