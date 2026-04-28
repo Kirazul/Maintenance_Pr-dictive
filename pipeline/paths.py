@@ -4,16 +4,18 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-LEGACY_ROOT = PROJECT_ROOT.parent / "Maintenance_Pr-dictive_4.1-main"
 
-RAW_DATA_DIR = LEGACY_ROOT / "data"
-LEGACY_RESULTS_DIR = LEGACY_ROOT / "results"
-
+# Data paths - updated to use current project structure
+RAW_DATA_DIR = PROJECT_ROOT / "data"
 DATA_DIR = PROJECT_ROOT / "data"
 PROCESSED_DIR = DATA_DIR / "processed"
 ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
 FRONTEND_DATA_DIR = FRONTEND_DIR / "assets" / "data"
+
+# Keep LEGACY_ROOT for backwards compatibility if needed
+LEGACY_ROOT = PROJECT_ROOT.parent / "Maintenance_Pr-dictive_4.1-main"
+LEGACY_RESULTS_DIR = LEGACY_ROOT / "results"
 
 
 def stage_dir(stage: str) -> Path:

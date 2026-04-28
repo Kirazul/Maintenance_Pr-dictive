@@ -1,13 +1,18 @@
 __pycache__/
-*.py[cod]
+*.pyc
 
-# Deployment archive exclusions for Railway CLI upload.
+# Local LaTeX compiler and older generated PDFs are not needed in production.
 rapport/tectonic.exe
 rapport/main.pdf
 rapport/main.tex
 rapport/Technical_Report_Predictive_Maintenance_Final.pdf
 rapport/Technical_Report_Predictive_Maintenance_Final_v2.pdf
+
+# Railway deploys the active production model. Static reports still show the full leaderboard.
 artifacts/models/*
 !artifacts/models/GradientBoosting.joblib
 tools/
 scripts/
+analysis/*.py
+analysis_summary.json
+DETAILED_ANALYSIS_REPORT.md

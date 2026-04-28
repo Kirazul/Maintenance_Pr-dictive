@@ -1220,7 +1220,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 1219,M16078,M,297.0,308.2,1702,30.7,124,0,No Failure,merged,0,0,0,0,0,No Failure
 1220,M16079,M,296.9,308.1,1357,41.8,127,0,No Failure,merged,0,0,0,0,0,No Failure
 1221,L48400,L,297.0,308.2,1577,29.4,130,0,No Failure,merged,0,0,0,0,0,No Failure
-1222,M16081,M,297.0,308.3,1399,46.4,132,0,Random Failures,merged,0,0,0,0,1,Random Failures
+1222,M16081,M,297.0,308.3,1399,46.4,132,1,Random Failures,merged,0,0,0,0,1,Random Failures
 1223,L48402,L,297.0,308.3,1399,59.0,135,0,No Failure,merged,0,0,0,0,0,No Failure
 1224,L48403,L,297.0,308.3,1492,48.1,137,0,No Failure,merged,0,0,0,0,0,No Failure
 1225,L48404,L,297.1,308.3,1763,25.7,139,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -1301,7 +1301,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 1300,M16159,M,298.7,309.9,1458,40.2,137,0,No Failure,merged,0,0,0,0,0,No Failure
 1301,L48480,L,298.7,309.8,1322,57.0,140,0,No Failure,merged,0,0,0,0,0,No Failure
 1302,L48481,L,298.7,309.9,1483,32.8,142,0,No Failure,merged,0,0,0,0,0,No Failure
-1303,L48482,L,298.6,309.8,1505,45.7,144,0,Random Failures,merged,0,0,0,0,1,Random Failures
+1303,L48482,L,298.6,309.8,1505,45.7,144,1,Random Failures,merged,0,0,0,0,1,Random Failures
 1304,L48483,L,298.7,309.9,1593,42.5,146,0,No Failure,merged,0,0,0,0,0,No Failure
 1305,L48484,L,298.8,310.0,2098,19.6,148,0,No Failure,merged,0,0,0,0,0,No Failure
 1306,L48485,L,298.8,310.0,1672,30.4,150,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -1436,7 +1436,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 1435,M16294,M,298.8,309.8,1377,49.6,27,0,No Failure,merged,0,0,0,0,0,No Failure
 1436,H30849,H,298.8,309.9,1526,42.1,30,0,No Failure,merged,0,0,0,0,0,No Failure
 1437,H30850,H,298.8,309.8,1510,44.2,35,0,No Failure,merged,0,0,0,0,0,No Failure
-1438,H30851,H,298.8,309.9,1439,45.2,40,1,No Failure,merged,0,0,0,0,0,No Failure
+1438,H30851,H,298.8,309.9,1439,45.2,40,0,No Failure,merged,0,0,0,0,0,No Failure
 1439,L48618,L,298.8,309.9,1482,39.1,45,0,No Failure,merged,0,0,0,0,0,No Failure
 1440,M16299,M,298.8,309.8,1534,37.0,47,0,No Failure,merged,0,0,0,0,0,No Failure
 1441,M16300,M,298.8,309.9,1741,27.7,50,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -1747,7 +1747,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 1746,L48925,L,298.5,308.0,1624,29.8,160,0,No Failure,merged,0,0,0,0,0,No Failure
 1747,L48926,L,298.4,308.0,1526,41.1,162,0,No Failure,merged,0,0,0,0,0,No Failure
 1748,L48927,L,298.4,307.9,2381,14.2,164,0,No Failure,merged,0,0,0,0,0,No Failure
-1749,H31162,H,298.4,307.7,1626,31.1,166,0,Random Failures,merged,0,0,0,0,1,Random Failures
+1749,H31162,H,298.4,307.7,1626,31.1,166,1,Random Failures,merged,0,0,0,0,1,Random Failures
 1750,L48929,L,298.3,307.7,1576,33.8,171,0,No Failure,merged,0,0,0,0,0,No Failure
 1751,M16610,M,298.4,307.8,1617,31.6,173,0,No Failure,merged,0,0,0,0,0,No Failure
 1752,L48931,L,298.3,307.6,1942,20.6,176,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -2071,7 +2071,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 2070,H31483,H,299.7,309.6,1553,41.0,179,0,No Failure,merged,0,0,0,0,0,No Failure
 2071,L49250,L,299.7,309.5,1352,49.7,184,0,No Failure,merged,0,0,0,0,0,No Failure
 2072,M16931,M,299.7,309.6,1313,60.0,186,0,No Failure,merged,0,0,0,0,0,No Failure
-2073,L49252,L,299.6,309.5,1570,35.5,189,0,Random Failures,merged,0,0,0,0,1,Random Failures
+2073,L49252,L,299.6,309.5,1570,35.5,189,1,Random Failures,merged,0,0,0,0,1,Random Failures
 2074,L49253,L,299.6,309.4,1677,31.1,191,0,No Failure,merged,0,0,0,0,0,No Failure
 2075,L49254,L,299.5,309.4,1602,31.5,193,0,No Failure,merged,0,0,0,0,0,No Failure
 2076,L49255,L,299.5,309.4,1390,58.8,195,1,Overstrain Failure,merged,0,0,0,1,0,Overstrain Failure
@@ -2558,7 +2558,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 2557,M17416,M,299.3,309.1,1449,47.9,131,0,No Failure,merged,0,0,0,0,0,No Failure
 2558,M17417,M,299.4,309.1,1440,50.0,134,0,No Failure,merged,0,0,0,0,0,No Failure
 2559,M17418,M,299.2,309.0,1881,23.9,137,0,No Failure,merged,0,0,0,0,0,No Failure
-2560,L49739,L,299.3,309.0,1447,50.4,140,0,Random Failures,merged,0,0,0,0,1,Random Failures
+2560,L49739,L,299.3,309.0,1447,50.4,140,1,Random Failures,merged,0,0,0,0,1,Random Failures
 2561,M17420,M,299.4,309.1,1326,62.0,142,0,No Failure,merged,0,0,0,0,0,No Failure
 2562,L49741,L,299.4,309.2,1607,31.7,145,0,No Failure,merged,0,0,0,0,0,No Failure
 2563,L49742,L,299.3,309.1,1551,39.1,147,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -2748,7 +2748,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 2747,L49926,L,299.7,309.2,1411,46.1,173,0,No Failure,merged,0,0,0,0,0,No Failure
 2748,L49927,L,299.7,309.2,1616,31.6,175,0,No Failure,merged,0,0,0,0,0,No Failure
 2749,L49928,L,299.7,309.2,1631,35.1,177,0,No Failure,merged,0,0,0,0,0,No Failure
-2750,M17609,M,299.7,309.2,1685,28.9,179,1,No Failure,merged,0,0,0,0,0,No Failure
+2750,M17609,M,299.7,309.2,1685,28.9,179,0,No Failure,merged,0,0,0,0,0,No Failure
 2751,H32164,H,299.7,309.2,1456,40.6,182,0,No Failure,merged,0,0,0,0,0,No Failure
 2752,L49931,L,299.7,309.1,1417,50.1,187,0,No Failure,merged,0,0,0,0,0,No Failure
 2753,M17612,M,299.7,309.1,1851,24.7,189,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -3064,7 +3064,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 3063,L50242,L,299.9,309.0,1553,40.0,88,0,No Failure,merged,0,0,0,0,0,No Failure
 3064,L50243,L,300.0,309.1,1431,45.4,90,0,No Failure,merged,0,0,0,0,0,No Failure
 3065,M17924,M,300.1,309.1,1731,30.4,92,0,No Failure,merged,0,0,0,0,0,No Failure
-3066,M17925,M,300.1,309.2,1687,27.7,95,0,Random Failures,merged,0,0,0,0,1,Random Failures
+3066,M17925,M,300.1,309.2,1687,27.7,95,1,Random Failures,merged,0,0,0,0,1,Random Failures
 3067,M17926,M,300.1,309.2,1457,44.3,98,0,No Failure,merged,0,0,0,0,0,No Failure
 3068,L50247,L,300.1,309.2,1533,37.0,101,0,No Failure,merged,0,0,0,0,0,No Failure
 3069,H32482,H,300.0,309.0,1622,31.8,103,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -3451,7 +3451,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 3450,L50629,L,301.7,310.7,1605,33.3,220,0,No Failure,merged,0,0,0,0,0,No Failure
 3451,L50630,L,301.6,310.6,1506,43.4,222,0,No Failure,merged,0,0,0,0,0,No Failure
 3452,L50631,L,301.6,310.6,1455,43.9,0,0,No Failure,merged,0,0,0,0,0,No Failure
-3453,H32866,H,301.6,310.5,1602,32.3,2,0,Random Failures,merged,0,0,0,0,1,Random Failures
+3453,H32866,H,301.6,310.5,1602,32.3,2,1,Random Failures,merged,0,0,0,0,1,Random Failures
 3454,L50633,L,301.5,310.4,1425,54.4,7,0,No Failure,merged,0,0,0,0,0,No Failure
 3455,L50634,L,301.5,310.4,1918,21.8,9,0,No Failure,merged,0,0,0,0,0,No Failure
 3456,H32869,H,301.4,310.3,1611,41.5,11,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -4043,7 +4043,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 4042,L51221,L,302.0,310.9,1539,34.2,13,0,No Failure,merged,0,0,0,0,0,No Failure
 4043,L51222,L,302.0,310.9,1564,39.0,15,0,No Failure,merged,0,0,0,0,0,No Failure
 4044,M18903,M,302.0,310.8,1445,46.3,17,0,No Failure,merged,0,0,0,0,0,No Failure
-4045,M18904,M,301.9,310.9,1419,47.7,20,1,No Failure,merged,0,0,0,0,0,No Failure
+4045,M18904,M,301.9,310.9,1419,47.7,20,0,No Failure,merged,0,0,0,0,0,No Failure
 4046,M18905,M,301.8,310.9,1881,20.9,23,0,No Failure,merged,0,0,0,0,0,No Failure
 4047,M18906,M,301.9,310.9,1421,46.2,26,0,No Failure,merged,0,0,0,0,0,No Failure
 4048,L51227,L,301.9,311.0,1455,46.0,29,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -4683,7 +4683,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 4682,M19541,M,303.6,311.8,1659,34.7,94,0,No Failure,merged,0,0,0,0,0,No Failure
 4683,L51862,L,303.6,311.8,1567,31.7,97,0,No Failure,merged,0,0,0,0,0,No Failure
 4684,L51863,L,303.6,311.8,1736,32.9,99,0,No Failure,merged,0,0,0,0,0,No Failure
-4685,M19544,M,303.6,311.8,1421,44.8,101,1,No Failure,merged,0,0,0,0,0,No Failure
+4685,M19544,M,303.6,311.8,1421,44.8,101,0,No Failure,merged,0,0,0,0,0,No Failure
 4686,M19545,M,303.6,311.8,1627,30.8,104,0,No Failure,merged,0,0,0,0,0,No Failure
 4687,M19546,M,303.5,311.6,1562,34.2,107,0,No Failure,merged,0,0,0,0,0,No Failure
 4688,L51867,L,303.5,311.6,2183,17.0,110,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5470,7 +5470,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5469,L52648,L,302.8,312.3,1764,29.9,162,0,No Failure,merged,0,0,0,0,0,No Failure
 5470,M20329,M,302.7,312.2,1439,42.5,164,0,No Failure,merged,0,0,0,0,0,No Failure
 5471,M20330,M,302.7,312.2,1585,35.5,167,0,No Failure,merged,0,0,0,0,0,No Failure
-5472,L52651,L,302.7,312.3,1346,61.2,170,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5472,L52651,L,302.7,312.3,1346,61.2,170,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5473,L52652,L,302.8,312.3,1386,57.8,172,0,No Failure,merged,0,0,0,0,0,No Failure
 5474,L52653,L,302.7,312.2,1369,51.8,174,0,No Failure,merged,0,0,0,0,0,No Failure
 5475,M20334,M,302.7,312.1,1378,46.9,176,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5488,13 +5488,13 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5487,L52666,L,302.6,312.2,1520,43.0,208,0,No Failure,merged,0,0,0,0,0,No Failure
 5488,M20347,M,302.6,312.1,1611,39.9,210,0,No Failure,merged,0,0,0,0,0,No Failure
 5489,L52668,L,302.7,312.2,1450,52.1,213,1,Overstrain Failure,merged,0,0,0,1,0,Overstrain Failure
-5490,L52669,L,302.6,312.1,1499,35.0,215,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5490,L52669,L,302.6,312.1,1499,35.0,215,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5491,L52670,L,302.6,312.1,1288,68.5,0,1,Power Failure,merged,0,0,1,0,0,Power Failure
 5492,M20351,M,302.7,312.2,1350,58.6,2,0,No Failure,merged,0,0,0,0,0,No Failure
 5493,M20352,M,302.9,312.4,1334,50.9,5,0,No Failure,merged,0,0,0,0,0,No Failure
 5494,L52673,L,302.8,312.4,1376,57.1,8,0,No Failure,merged,0,0,0,0,0,No Failure
 5495,L52674,L,302.8,312.4,1368,49.5,10,0,No Failure,merged,0,0,0,0,0,No Failure
-5496,H34909,H,302.9,312.5,1357,55.0,12,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5496,H34909,H,302.9,312.5,1357,55.0,12,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5497,M20356,M,302.9,312.5,1924,24.0,17,0,No Failure,merged,0,0,0,0,0,No Failure
 5498,M20357,M,302.9,312.5,1551,40.0,20,0,No Failure,merged,0,0,0,0,0,No Failure
 5499,M20358,M,302.9,312.5,1903,21.2,23,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5508,7 +5508,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5507,L52686,L,302.9,312.2,1677,30.5,46,0,No Failure,merged,0,0,0,0,0,No Failure
 5508,L52687,L,302.8,312.1,1520,39.9,48,0,No Failure,merged,0,0,0,0,0,No Failure
 5509,L52688,L,302.9,312.2,1367,55.1,50,0,No Failure,merged,0,0,0,0,0,No Failure
-5510,L52689,L,302.8,312.2,1509,36.5,52,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5510,L52689,L,302.8,312.2,1509,36.5,52,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5511,L52690,L,302.8,312.1,1418,51.4,54,0,No Failure,merged,0,0,0,0,0,No Failure
 5512,L52691,L,302.8,312.1,1958,20.3,56,0,No Failure,merged,0,0,0,0,0,No Failure
 5513,L52692,L,302.8,312.2,1682,30.9,58,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5535,7 +5535,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5534,L52713,L,302.4,311.7,1721,26.9,112,0,No Failure,merged,0,0,0,0,0,No Failure
 5535,M20394,M,302.3,311.7,1494,37.1,114,0,No Failure,merged,0,0,0,0,0,No Failure
 5536,L52715,L,302.3,311.7,1465,43.5,117,0,No Failure,merged,0,0,0,0,0,No Failure
-5537,M20396,M,302.3,311.8,1363,54.0,119,1,No Failure,merged,0,0,0,0,0,No Failure
+5537,M20396,M,302.3,311.8,1363,54.0,119,0,No Failure,merged,0,0,0,0,0,No Failure
 5538,L52717,L,302.4,311.8,1648,30.0,122,0,No Failure,merged,0,0,0,0,0,No Failure
 5539,M20398,M,302.3,311.8,1879,23.0,124,0,No Failure,merged,0,0,0,0,0,No Failure
 5540,H34953,H,302.3,311.7,1482,39.0,127,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5552,7 +5552,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5551,M20410,M,302.3,311.9,1508,42.3,159,0,No Failure,merged,0,0,0,0,0,No Failure
 5552,H34965,H,302.4,311.9,1366,47.3,162,0,No Failure,merged,0,0,0,0,0,No Failure
 5553,H34966,H,302.5,312.0,1579,35.7,167,0,No Failure,merged,0,0,0,0,0,No Failure
-5554,L52733,L,302.5,311.9,1306,59.7,172,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5554,L52733,L,302.5,311.9,1306,59.7,172,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5555,M20414,M,302.5,312.0,1521,40.2,174,0,No Failure,merged,0,0,0,0,0,No Failure
 5556,L52735,L,302.5,312.0,1411,44.2,177,0,No Failure,merged,0,0,0,0,0,No Failure
 5557,H34970,H,302.5,312.0,1357,42.0,179,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5638,7 +5638,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5637,L52816,L,302.6,312.0,1447,45.5,173,0,No Failure,merged,0,0,0,0,0,No Failure
 5638,M20497,M,302.5,312.0,1487,46.1,175,0,No Failure,merged,0,0,0,0,0,No Failure
 5639,L52818,L,302.6,312.1,1519,38.1,178,0,No Failure,merged,0,0,0,0,0,No Failure
-5640,L52819,L,302.6,312.1,1668,28.7,180,0,Random Failures,merged,0,0,0,0,1,Random Failures
+5640,L52819,L,302.6,312.1,1668,28.7,180,1,Random Failures,merged,0,0,0,0,1,Random Failures
 5641,L52820,L,302.6,312.1,1420,51.6,182,0,No Failure,merged,0,0,0,0,0,No Failure
 5642,L52821,L,302.6,312.1,1473,37.3,184,0,No Failure,merged,0,0,0,0,0,No Failure
 5643,L52822,L,302.5,312.0,1495,38.8,186,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -5940,7 +5940,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 5939,L53118,L,300.5,310.4,1702,33.1,71,0,No Failure,merged,0,0,0,0,0,No Failure
 5940,L53119,L,300.5,310.5,1409,60.9,73,0,No Failure,merged,0,0,0,0,0,No Failure
 5941,M20800,M,300.6,310.6,1427,52.8,75,0,No Failure,merged,0,0,0,0,0,No Failure
-5942,L53121,L,300.6,310.7,1438,48.5,78,1,No Failure,merged,0,0,0,0,0,No Failure
+5942,L53121,L,300.6,310.7,1438,48.5,78,0,No Failure,merged,0,0,0,0,0,No Failure
 5943,L53122,L,300.7,310.7,1450,43.4,80,0,No Failure,merged,0,0,0,0,0,No Failure
 5944,L53123,L,300.7,310.7,1541,41.3,82,0,No Failure,merged,0,0,0,0,0,No Failure
 5945,M20804,M,300.7,310.6,1484,38.0,84,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -6090,7 +6090,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 6089,L53268,L,300.9,310.8,1476,39.0,10,0,No Failure,merged,0,0,0,0,0,No Failure
 6090,L53269,L,300.9,310.7,1509,37.5,12,0,No Failure,merged,0,0,0,0,0,No Failure
 6091,L53270,L,300.9,310.8,1708,29.1,14,0,No Failure,merged,0,0,0,0,0,No Failure
-6092,L53271,L,300.9,310.7,1412,57.5,16,0,Random Failures,merged,0,0,0,0,1,Random Failures
+6092,L53271,L,300.9,310.7,1412,57.5,16,1,Random Failures,merged,0,0,0,0,1,Random Failures
 6093,L53272,L,300.9,310.7,1658,28.5,18,0,No Failure,merged,0,0,0,0,0,No Failure
 6094,L53273,L,301.0,310.8,1375,57.2,20,0,No Failure,merged,0,0,0,0,0,No Failure
 6095,M20954,M,300.9,310.8,1402,48.1,22,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -6477,7 +6477,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 6476,L53655,L,300.5,309.7,1560,30.2,139,0,No Failure,merged,0,0,0,0,0,No Failure
 6477,L53656,L,300.5,309.7,1384,48.6,141,0,No Failure,merged,0,0,0,0,0,No Failure
 6478,L53657,L,300.5,309.7,1841,24.6,143,0,No Failure,merged,0,0,0,0,0,No Failure
-6479,L53658,L,300.5,309.8,1663,29.1,145,1,No Failure,merged,0,0,0,0,0,No Failure
+6479,L53658,L,300.5,309.8,1663,29.1,145,0,No Failure,merged,0,0,0,0,0,No Failure
 6480,L53659,L,300.6,309.8,1418,42.7,147,0,No Failure,merged,0,0,0,0,0,No Failure
 6481,L53660,L,300.7,309.9,1775,26.6,149,0,No Failure,merged,0,0,0,0,0,No Failure
 6482,L53661,L,300.7,309.8,1406,48.4,151,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -6912,7 +6912,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 6911,L54090,L,300.8,311.2,1434,45.6,174,0,No Failure,merged,0,0,0,0,0,No Failure
 6912,L54091,L,300.8,311.1,1480,41.1,176,0,No Failure,merged,0,0,0,0,0,No Failure
 6913,M21772,M,300.8,311.2,1634,31.9,178,0,No Failure,merged,0,0,0,0,0,No Failure
-6914,L54093,L,300.8,311.2,1481,38.5,181,0,Random Failures,merged,0,0,0,0,1,Random Failures
+6914,L54093,L,300.8,311.2,1481,38.5,181,1,Random Failures,merged,0,0,0,0,1,Random Failures
 6915,H36328,H,300.9,311.3,1668,28.9,183,0,No Failure,merged,0,0,0,0,0,No Failure
 6916,L54095,L,301.0,311.4,1484,36.2,188,0,No Failure,merged,0,0,0,0,0,No Failure
 6917,M21776,M,300.9,311.3,1603,31.8,190,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -6959,7 +6959,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 6958,L54137,L,300.7,311.1,1324,52.2,85,0,No Failure,merged,0,0,0,0,0,No Failure
 6959,L54138,L,300.6,311.0,1563,40.7,87,0,No Failure,merged,0,0,0,0,0,No Failure
 6960,L54139,L,300.6,311.0,1543,34.7,89,0,No Failure,merged,0,0,0,0,0,No Failure
-6961,L54140,L,300.7,311.0,1413,52.0,91,0,Random Failures,merged,0,0,0,0,1,Random Failures
+6961,L54140,L,300.7,311.0,1413,52.0,91,1,Random Failures,merged,0,0,0,0,1,Random Failures
 6962,M21821,M,300.7,311.0,1378,41.2,93,0,No Failure,merged,0,0,0,0,0,No Failure
 6963,M21822,M,300.7,311.1,1373,49.9,96,0,No Failure,merged,0,0,0,0,0,No Failure
 6964,H36377,H,300.7,311.0,1981,19.9,99,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -7487,7 +7487,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 7486,L54665,L,300.3,311.6,1595,38.8,154,0,No Failure,merged,0,0,0,0,0,No Failure
 7487,L54666,L,300.3,311.7,1635,31.8,156,0,No Failure,merged,0,0,0,0,0,No Failure
 7488,L54667,L,300.3,311.7,1707,33.6,158,0,No Failure,merged,0,0,0,0,0,No Failure
-7489,L54668,L,300.3,311.7,1545,43.5,160,0,Random Failures,merged,0,0,0,0,1,Random Failures
+7489,L54668,L,300.3,311.7,1545,43.5,160,1,Random Failures,merged,0,0,0,0,1,Random Failures
 7490,M22349,M,300.2,311.6,1751,28.0,162,0,No Failure,merged,0,0,0,0,0,No Failure
 7491,M22350,M,300.4,311.8,1707,30.0,165,0,No Failure,merged,0,0,0,0,0,No Failure
 7492,L54671,L,300.4,311.8,1320,57.9,168,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -7867,7 +7867,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 7866,L55045,L,300.5,311.9,1383,50.5,35,0,No Failure,merged,0,0,0,0,0,No Failure
 7867,L55046,L,300.5,311.9,1431,49.4,37,0,No Failure,merged,0,0,0,0,0,No Failure
 7868,L55047,L,300.5,312.0,1461,38.1,39,0,No Failure,merged,0,0,0,0,0,No Failure
-7869,H37282,H,300.4,311.9,1438,46.7,41,0,Random Failures,merged,0,0,0,0,1,Random Failures
+7869,H37282,H,300.4,311.9,1438,46.7,41,1,Random Failures,merged,0,0,0,0,1,Random Failures
 7870,M22729,M,300.5,312.0,1779,27.7,46,0,No Failure,merged,0,0,0,0,0,No Failure
 7871,M22730,M,300.6,312.1,1293,52.3,49,0,No Failure,merged,0,0,0,0,0,No Failure
 7872,L55051,L,300.6,312.2,1308,54.7,52,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -8505,7 +8505,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 8504,L55683,L,298.5,309.8,1468,40.9,157,0,No Failure,merged,0,0,0,0,0,No Failure
 8505,L55684,L,298.4,309.7,1419,41.3,159,0,No Failure,merged,0,0,0,0,0,No Failure
 8506,L55685,L,298.4,309.7,1530,38.6,161,0,No Failure,merged,0,0,0,0,0,No Failure
-8507,L55686,L,298.4,309.6,1710,27.3,163,1,No Failure,merged,0,0,0,0,0,No Failure
+8507,L55686,L,298.4,309.6,1710,27.3,163,0,No Failure,merged,0,0,0,0,0,No Failure
 8508,L55687,L,298.4,309.7,1518,39.8,165,0,No Failure,merged,0,0,0,0,0,No Failure
 8509,M23368,M,298.4,309.7,1679,33.3,167,0,No Failure,merged,0,0,0,0,0,No Failure
 8510,M23369,M,298.4,309.7,1870,22.5,170,0,No Failure,merged,0,0,0,0,0,No Failure
@@ -9014,7 +9014,7 @@ udi,product_id,product_type,air_temp_k,process_temp_k,rotational_speed_rpm,torqu
 9013,L56192,L,297.2,308.0,1705,26.0,200,0,No Failure,merged,0,0,0,0,0,No Failure
 9014,H38427,H,297.2,308.0,1435,43.0,202,0,No Failure,merged,0,0,0,0,0,No Failure
 9015,M23874,M,297.2,308.1,1340,61.3,207,1,Overstrain Failure,merged,0,0,0,1,0,Overstrain Failure
-9016,L56195,L,297.2,308.1,1431,49.7,210,1,No Failure,merged,0,0,0,0,0,No Failure
+9016,L56195,L,297.2,308.1,1431,49.7,210,0,No Failure,merged,0,0,0,0,0,No Failure
 9017,L56196,L,297.3,308.2,1396,52.7,212,1,Overstrain Failure,merged,0,0,0,1,0,Overstrain Failure
 9018,M23877,M,297.3,308.1,1369,52.0,214,0,No Failure,merged,0,0,0,0,0,No Failure
 9019,L56198,L,297.3,308.1,1615,35.4,217,1,Tool Wear Failure,merged,1,0,0,0,0,Tool Wear Failure

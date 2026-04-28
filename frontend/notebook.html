@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML LAB | Predictive Maintenance Workflow</title>
+    <title>ML Lab | Predictive Maintenance Workflow</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    <link rel="stylesheet" href="css/style.css?v=4.0">
+    <link rel="stylesheet" href="css/style.css?v=5.1">
 </head>
 <body class="notebook-body">
     <div id="bg-layer"></div>
@@ -15,10 +15,11 @@
 
     <div class="top-nav">
         <div class="nav-cluster">
-            <a href="/" class="nav-btn route-link">BACK TO CONTROL ROOM</a>
+            <a href="/" class="nav-btn route-link">BACK TO DASHBOARD</a>
         </div>
         <div class="nav-cluster">
-            <div class="nav-meta glass">Interactive Workflow Notebook</div>
+            <div class="nav-meta glass">Synchronized ML Workflow</div>
+            <a href="/report" class="nav-btn route-link">REPORT</a>
             <a href="/presentation" class="nav-btn route-link">PRESENTATION</a>
             <a href="#chapter-stage1" class="nav-btn primary">CODE FIRST</a>
         </div>
@@ -26,62 +27,69 @@
 
     <main class="book-shell">
         <section class="book-hero glass">
-            <span class="tag">ML LAB</span>
-            <h1>Predictive Maintenance <span>Workflow Book</span></h1>
-            <p>This lab mirrors the RealEstate workflow format: dashboard diagnostics, runnable cells, source-aware execution, and a chaptered build log for the production maintenance system.</p>
+            <span class="tag">ML Lab</span>
+            <h1>Predictive Maintenance <span>Workflow Lab</span></h1>
+            <p>The ML Lab uses the same API exports as the dashboard. It keeps the full runnable pipeline notebook, but presents the project in a cleaner order: data, ETL, features, training, evaluation, threshold policy, inference, and shipped artifacts.</p>
             <div class="hero-stats">
-                <div><strong id="hero-best-model">--</strong><span>Winning Model</span></div>
-                <div><strong id="hero-auc">--</strong><span>Operational Score</span></div>
-                <div><strong id="hero-f1">--</strong><span>Test F1</span></div>
+                <div><strong id="hero-best-model">--</strong><span>Best Model</span></div>
+                <div><strong id="hero-balanced">--</strong><span>Balanced Accuracy</span></div>
+                <div><strong id="hero-captured">--</strong><span>Failures Caught</span></div>
                 <div><strong id="hero-alert-rate">--</strong><span>Alert Rate</span></div>
+            </div>
+            <div class="lab-sync-strip">
+                <span>API synchronized</span>
+                <strong id="lab-sync-note">Loading canonical model summary...</strong>
             </div>
         </section>
 
         <div class="book-tabs">
-            <button class="book-tab" data-target="dashboard-tab-view">Dashboard</button>
-            <button class="book-tab active" data-target="code-tab-view">Code & Execution</button>
+            <button class="book-tab active" data-target="dashboard-tab-view">Overview</button>
+            <button class="book-tab" data-target="code-tab-view">Code & Execution</button>
         </div>
 
-        <div id="dashboard-tab-view" class="tab-view">
+        <div id="dashboard-tab-view" class="tab-view active">
             <div class="book-grid">
                 <aside class="book-sidebar glass">
-                    <span class="tag">Dashboard Layers</span>
+                    <span class="tag">Lab Map</span>
                     <nav class="chapter-nav">
-                        <a href="#dashboard-overview">Mission Control</a>
-                        <a href="#dashboard-models">Model Ranking</a>
-                        <a href="#dashboard-thresholds">Threshold Tuning</a>
+                        <a href="#dashboard-overview">1. Shared Summary</a>
+                        <a href="#dashboard-models">2. Model Ranking</a>
+                        <a href="#dashboard-thresholds">3. Threshold Policy</a>
+                        <a href="#code-tab-view">4. Runnable Notebook</a>
                     </nav>
                 </aside>
 
                 <div class="dashboard-shell">
                     <section id="dashboard-overview" class="chapter-card glass cinematic-card">
-                        <span class="tag">Mission Control</span>
-                        <h2>Operational Risk <span>Command Deck</span></h2>
-                        <p>This summary reflects the true project outputs: balanced thresholding, calibrated alert policy, and the current production-ready classifier.</p>
+                        <span class="tag">Shared Summary</span>
+                        <h2>Same model, same numbers, same API policy.</h2>
+                        <p>This panel is intentionally synchronized with the main dashboard. If the production model changes, this lab updates through the same API exports.</p>
                         <div class="dashboard-kpi-grid">
-                            <div class="dashboard-kpi-tile"><span>Winning Model</span><strong id="dash-best-model">--</strong><small>best validation operating profile</small></div>
-                            <div class="dashboard-kpi-tile"><span>Operational Score</span><strong id="dash-roc-auc">--</strong><small>balanced accuracy at selected threshold</small></div>
+                            <div class="dashboard-kpi-tile"><span>Best Model</span><strong id="dash-best-model">--</strong><small>loaded from /model_summary</small></div>
+                            <div class="dashboard-kpi-tile"><span>Balanced Accuracy</span><strong id="dash-balanced">--</strong><small>same headline as dashboard</small></div>
                             <div class="dashboard-kpi-tile"><span>Captured Failures</span><strong id="dash-captured">--</strong><small>true failures caught by current policy</small></div>
-                            <div class="dashboard-kpi-tile"><span>Alert Rate</span><strong id="dash-alert-rate">--</strong><small>share of holdout rows escalating</small></div>
+                            <div class="dashboard-kpi-tile"><span>Policy Threshold</span><strong id="dash-threshold">--</strong><small>same cutoff used by /predict</small></div>
                         </div>
                     </section>
 
                     <section id="dashboard-models" class="chapter-card glass cinematic-card">
                         <span class="tag">Model Board</span>
                         <h2>Model Competition</h2>
+                        <p>Models are shown with readable percentages. The champion row is highlighted, but the production headline above comes from the exported best-model artifact.</p>
                         <div id="lab-leaderboard" class="leaderboard"></div>
                     </section>
 
                     <section id="dashboard-thresholds" class="chapter-card glass cinematic-card">
                         <span class="tag">Threshold Control</span>
                         <h2>Operating Threshold Sweep</h2>
+                        <p>The selected API threshold is highlighted. Lower thresholds may catch more failures, but can increase false alarms or violate the precision policy.</p>
                         <div id="threshold-grid" class="leaderboard"></div>
                     </section>
                 </div>
             </div>
         </div>
 
-        <div id="code-tab-view" class="tab-view active">
+        <div id="code-tab-view" class="tab-view">
             <div class="toolbar">
                 <button class="nav-btn primary" onclick="runAllCells()">RUN LAB</button>
                 <button class="nav-btn" onclick="resetKernel()">RESET KERNEL</button>
@@ -99,19 +107,20 @@
                         <a href="#chapter-stage2">4. Canonical Merge</a>
                         <a href="#chapter-stage3">5. Split Strategy</a>
                         <a href="#chapter-stage4">6. Feature Engineering</a>
-                        <a href="#chapter-stage5">7. Model Training</a>
-                        <a href="#chapter-stage6">8. Evaluation</a>
-                        <a href="#chapter-stage7">9. Threshold Policy</a>
-                        <a href="#chapter-stage8">10. Inference Simulation</a>
-                        <a href="#chapter-stage9">11. Artifact Inspection</a>
-                        <a href="#chapter-sources">12. Source Browser</a>
+                        <a href="#chapter-dl">7. Deep Learning Architecture</a>
+                        <a href="#chapter-stage5">8. Model Training & Comparison</a>
+                        <a href="#chapter-stage6">9. Evaluation</a>
+                        <a href="#chapter-stage7">10. Threshold Policy</a>
+                        <a href="#chapter-stage8">11. Active API Inference</a>
+                        <a href="#chapter-stage9">12. Artifact Inspection</a>
+                        <a href="#chapter-sources">13. Source Browser</a>
                     </nav>
                 </aside>
 
                 <div class="chapter-stack">
                     <section id="chapter-overview" class="chapter-card glass cinematic-card">
                         <h2>1. Project Overview</h2>
-                        <p>This notebook documents the rebuilt maintenance workflow. It mirrors the RealEstate lab format by combining narrative, runnable code cells, and source-backed diagnostics in one place.</p>
+                        <p>This notebook documents the complete maintenance workflow by combining narrative, runnable code cells, and source-backed diagnostics in one place.</p>
                         <div class="cell-explainer"><h3>Notebook Goal</h3><p>Show how the maintenance pipeline turns duplicated raw machine files into one calibrated production classifier and frontend-ready exports.</p></div>
                         <div class="cell"><div class="cell-label">In [1]:</div><div class="cell-header"><span class="cell-title">Cell 1</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">from pathlib import Path
 import json
@@ -126,7 +135,7 @@ print("Notebook runtime ready")</textarea><div class="output"></div></div>
                     <section id="chapter-environment" class="chapter-card glass cinematic-card">
                         <h2>2. Environment Setup</h2>
                         <p>Configure all primary paths used by the maintenance workflow and confirm the generated artifacts are available.</p>
-                        <div class="cell"><div class="cell-label">In [2]:</div><div class="cell-header"><span class="cell-title">Cell 2</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">RAW_DIR = PROJECT_ROOT / ".." / "Maintenance_Pr-dictive_4.1-main" / "data"
+                        <div class="cell"><div class="cell-label">In [2]:</div><div class="cell-header"><span class="cell-title">Cell 2</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">RAW_DIR = PROJECT_ROOT / "data"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
@@ -203,22 +212,49 @@ print(engineered_train[numeric_features + categorical_features].head())</textare
 print(feature_snapshot)</textarea><div class="output"></div></div>
                     </section>
 
+                    <section id="chapter-dl" class="chapter-card glass cinematic-card">
+                        <h2>7. Deep Learning Architecture</h2>
+                        <p>Beyond traditional ML, we implement a Sequential Neural Network using TensorFlow. This architecture captures non-linear interactions between sensor readings.</p>
+                        <div class="cell-explainer"><h3>DL Strategy</h3><p>We use a 3-layer dense network with Dropout to prevent overfitting on the relatively small failure population.</p></div>
+                        <div class="cell"><div class="cell-label">In [11]:</div><div class="cell-header"><span class="cell-title">Cell 11</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">try:
+    import tensorflow as tf
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense, Dropout, Input
+    print("TensorFlow version:", tf.__version__)
+    
+    # Model Architecture Prototype
+    model = Sequential([
+        Input(shape=(16,)), # 13 numeric + encoded categorical
+        Dense(64, activation='relu'),
+        Dropout(0.2),
+        Dense(32, activation='relu'),
+        Dropout(0.1),
+        Dense(1, activation='sigmoid')
+    ])
+    model.compile(optimizer='adam', loss='binary_crossentropy')
+    model.summary()
+except ImportError:
+    print("TensorFlow not installed in this environment")</textarea><div class="output"></div></div>
+                    </section>
+
                     <section id="chapter-stage5" class="chapter-card glass cinematic-card">
-                        <h2>7. Model Training</h2>
-                        <p>The system ranks models by validation balanced accuracy and ROC AUC, then exports the best calibrated artifact for the API and control-room frontend.</p>
-                        <div class="cell"><div class="cell-label">In [11]:</div><div class="cell-header"><span class="cell-title">Cell 11</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">leaderboard = pd.read_csv(PROCESSED_DIR / "05_model_training" / "05_leaderboard.csv")
-print(leaderboard)
+                        <h2>8. Model Training & Comparison</h2>
+                        <p>The system ranks models using validation balanced accuracy and ROC AUC, then exports the selected model threshold for the API. We compare traditional ensembles against neural alternatives.</p>
+                        <div class="cell"><div class="cell-label">In [12]:</div><div class="cell-header"><span class="cell-title">Cell 12</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">leaderboard = pd.read_csv(PROCESSED_DIR / "05_model_training" / "05_leaderboard.csv")
+print("Leaderboard (Ranked by Balanced Accuracy):")
+print(leaderboard[['model_name', 'validation_balanced_accuracy', 'test_balanced_accuracy', 'threshold']])
 print()
-print("Best model:", leaderboard.iloc[0]['model_name'])</textarea><div class="output"></div></div>
-                        <div class="cell"><div class="cell-label">In [12]:</div><div class="cell-header"><span class="cell-title">Cell 12</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">top_row = leaderboard.iloc[0]
-print('threshold:', top_row['threshold'])
-print('validation balanced accuracy:', round(top_row['validation_balanced_accuracy'], 4))
-print('test balanced accuracy:', round(top_row['test_balanced_accuracy'], 4))
-print('test average precision:', round(top_row['test_average_precision'], 4))</textarea><div class="output"></div></div>
+print("Best performing model:", leaderboard.iloc[0]['model_name'])</textarea><div class="output"></div></div>
+                        <div class="cell"><div class="cell-label">In [13]:</div><div class="cell-header"><span class="cell-title">Cell 13</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor"># DL vs ML Comparison
+dl_models = leaderboard[leaderboard['model_name'].str.contains('DeepLearning|NeuralNetwork')]
+ml_models = leaderboard[~leaderboard['model_name'].str.contains('DeepLearning|NeuralNetwork')]
+
+print(f"Top ML Score: {ml_models['test_balanced_accuracy'].max():.4f}")
+print(f"Top DL Score: {dl_models['test_balanced_accuracy'].max():.4f}")</textarea><div class="output"></div></div>
                     </section>
 
                     <section id="chapter-stage6" class="chapter-card glass cinematic-card">
-                        <h2>8. Evaluation</h2>
+                        <h2>9. Evaluation</h2>
                         <p>This chapter surfaces the calibrated operating metrics. The important score is balanced operational quality, not naive raw accuracy on an imbalanced target.</p>
                         <div class="cell"><div class="cell-label">In [13]:</div><div class="cell-header"><span class="cell-title">Cell 13</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">report = json.loads((PROCESSED_DIR / "06_model_evaluation" / "06_model_evaluation_report.json").read_text(encoding="utf-8"))
 print(report['classification_metrics'])
@@ -234,66 +270,42 @@ print('TP:', confusion['tp'])</textarea><div class="output"></div></div>
                     </section>
 
                     <section id="chapter-stage7" class="chapter-card glass cinematic-card">
-                        <h2>9. Threshold Policy</h2>
+                        <h2>10. Threshold Policy</h2>
                         <p>Threshold tuning turns the classifier into a deployable policy. This chapter compares the operating curve and highlights the calibration tradeoff directly.</p>
                         <div class="cell"><div class="cell-label">In [15]:</div><div class="cell-header"><span class="cell-title">Cell 15</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">threshold_df = pd.DataFrame(report['threshold_curve'])
 print(threshold_df.head(10))</textarea><div class="output"></div></div>
-                        <div class="cell"><div class="cell-label">In [16]:</div><div class="cell-header"><span class="cell-title">Cell 16</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">best_balanced = threshold_df.loc[threshold_df['balanced_accuracy'].idxmax()]
-best_f1 = threshold_df.loc[threshold_df['f1'].idxmax()]
-print('best balanced threshold:', best_balanced.to_dict())
-print('best f1 threshold:', best_f1.to_dict())</textarea><div class="output"></div></div>
+                        <div class="cell"><div class="cell-label">In [16]:</div><div class="cell-header"><span class="cell-title">Cell 16</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">selected_threshold = report['operations_metrics']['recommended_threshold']
+best_balanced = threshold_df.loc[threshold_df['balanced_accuracy'].idxmax()]
+selected_row = threshold_df.loc[threshold_df['threshold'].eq(selected_threshold)].iloc[0]
+print('API selected threshold:', selected_threshold)
+print('selected policy row:', selected_row.to_dict())
+print('best raw balanced threshold:', best_balanced.to_dict())</textarea><div class="output"></div></div>
                     </section>
 
                     <section id="chapter-stage8" class="chapter-card glass cinematic-card">
-                        <h2>10. Inference Simulation</h2>
-                        <p>Production readiness depends on sensible behavior in realistic scenarios. This chapter tests stable and high-risk machine states through the exported model artifact.</p>
-                        <div class="cell"><div class="cell-label">In [17]:</div><div class="cell-header"><span class="cell-title">Cell 17</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">import joblib
+                        <h2>11. Active API Inference</h2>
+                        <p>This cell calls the same active prediction logic used by the deployed API. It avoids hard-coded localhost ports, so it works locally and after Railway deployment.</p>
+                        <div class="cell"><div class="cell-label">In [18]:</div><div class="cell-header"><span class="cell-title">Cell 18</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">from api.app import PredictionRequest, predict
 
-artifact = joblib.load(ARTIFACTS_DIR / '05_best_model.joblib')
-print('artifact model:', artifact['model_name'])
-print('threshold:', artifact['threshold'])</textarea><div class="output"></div></div>
-                        <div class="cell"><div class="cell-label">In [18]:</div><div class="cell-header"><span class="cell-title">Cell 18</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">stable_case = pd.DataFrame([{
-    'air_temp_k': 298.1,
-    'process_temp_k': 308.6,
-    'rotational_speed_rpm': 1551,
-    'torque_nm': 42.8,
-    'tool_wear_min': 0,
-    'temp_delta_k': 10.5,
-    'power_proxy': 1551 * 42.8,
-    'wear_power_ratio': 0 / ((1551 * 42.8) + 1.0),
-    'torque_speed_ratio': 42.8 / (1551 + 1.0),
-    'thermal_load': 10.5 * 42.8,
-    'wear_temp_stress': 0,
-    'high_torque_flag': 0,
-    'low_speed_flag': 0,
-    'product_type': 'M',
-    'source_dataset': 'merged',
-    'wear_risk_band': 'fresh',
-}])
-print('stable probability:', artifact['pipeline'].predict_proba(stable_case)[0, 1])</textarea><div class="output"></div></div>
-                        <div class="cell"><div class="cell-label">In [19]:</div><div class="cell-header"><span class="cell-title">Cell 19</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">critical_case = pd.DataFrame([{
-    'air_temp_k': 300.0,
-    'process_temp_k': 310.8,
-    'rotational_speed_rpm': 1320,
-    'torque_nm': 62.0,
-    'tool_wear_min': 210,
-    'temp_delta_k': 10.8,
-    'power_proxy': 1320 * 62.0,
-    'wear_power_ratio': 210 / ((1320 * 62.0) + 1.0),
-    'torque_speed_ratio': 62.0 / (1320 + 1.0),
-    'thermal_load': 10.8 * 62.0,
-    'wear_temp_stress': 210 * 10.8,
-    'high_torque_flag': 1,
-    'low_speed_flag': 1,
-    'product_type': 'H',
-    'source_dataset': 'merged',
-    'wear_risk_band': 'critical',
-}])
-print('critical probability:', artifact['pipeline'].predict_proba(critical_case)[0, 1])</textarea><div class="output"></div></div>
+payload = {
+    "air_temp_k": 300.0,
+    "process_temp_k": 310.8,
+    "rotational_speed": 1320,
+    "torque": 62.0,
+    "tool_wear": 210,
+    "product_type": "H"
+}
+
+res = predict(PredictionRequest(**payload), model_name=None)
+print("ACTIVE API MODEL:", res["model"])
+print(f"Probability: {res['failure_probability']:.4f}")
+print("Risk:", res["risk_band"])
+print("Action:", res["recommended_action"])
+print("Threshold:", res["threshold"])</textarea><div class="output"></div></div>
                     </section>
 
                     <section id="chapter-stage9" class="chapter-card glass cinematic-card">
-                        <h2>11. Artifact Inspection</h2>
+                        <h2>12. Artifact Inspection</h2>
                         <p>The production layer consumes exported summaries and dashboard payloads. This chapter inspects those files directly so the notebook stays tied to the shipped product.</p>
                         <div class="cell"><div class="cell-label">In [20]:</div><div class="cell-header"><span class="cell-title">Cell 20</span><button class="btn-run" onclick="runCell(this)">RUN</button></div><textarea class="code-editor">summary = json.loads((FRONTEND_DIR / 'model_summary.json').read_text(encoding='utf-8'))
 print(summary)</textarea><div class="output"></div></div>
@@ -304,8 +316,8 @@ print('leaderboard rows:', len(dashboard_payload['leaderboard']))</textarea><div
                     </section>
 
                     <section id="chapter-sources" class="chapter-card glass cinematic-card">
-                        <h2>12. Source Browser</h2>
-                        <p>Like the RealEstate notebook, this section keeps project files visible inside the lab. The panels below are populated from live source files in the repository.</p>
+                        <h2>13. Source Browser</h2>
+                        <p>This section keeps project files visible inside the lab. The panels below are populated from live source files in the repository.</p>
                         <div id="source-snippets" class="source-snippets"></div>
                     </section>
                 </div>
@@ -313,6 +325,6 @@ print('leaderboard rows:', len(dashboard_payload['leaderboard']))</textarea><div
         </div>
     </main>
 
-    <script src="js/notebook.js?v=4.0"></script>
+    <script src="js/notebook.js?v=5.1"></script>
 </body>
 </html>

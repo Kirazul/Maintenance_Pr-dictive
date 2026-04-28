@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predictive Maintenance Intelligence</title>
+    <title>Predictive Maintenance Dashboard</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    <link rel="stylesheet" href="css/style.css?v=3.0">
+    <link rel="stylesheet" href="css/style.css?v=5.0">
 </head>
-<body>
+<body class="home-page">
     <div id="bg-layer"></div>
     <div id="vignette"></div>
     <div id="grid-overlay"></div>
@@ -15,18 +15,19 @@
 
     <div id="loading-overlay">
         <div class="loader"></div>
-        <p>INITIALIZING MAINTENANCE CORE...</p>
+        <p>LOADING MAINTENANCE DASHBOARD...</p>
     </div>
 
     <header class="top-nav">
         <div class="nav-cluster">
             <div class="brand-mark glass">
                 <span class="brand-kicker">Industrial AI</span>
-                <strong>Maintenance Command</strong>
+                <strong>Maintenance Dashboard</strong>
             </div>
         </div>
         <div class="nav-cluster">
-            <div class="nav-meta glass">Operational Risk Intelligence Layer</div>
+            <div class="nav-meta glass">Clear failure-risk decision support</div>
+            <a href="/report" class="nav-btn route-link">REPORT</a>
             <a href="/presentation" class="nav-btn route-link">PRESENTATION</a>
             <a href="/notebook" class="nav-btn primary route-link">ML LAB</a>
         </div>
@@ -34,128 +35,158 @@
 
     <div class="scene-status glass">
         <span class="scene-dot"></span>
-        <span id="hero-subtitle">Loading production diagnostics...</span>
+        <span id="hero-subtitle">Loading dashboard data...</span>
     </div>
 
-    <main class="control-shell">
-        <section class="hero-stage glass">
+    <main class="control-shell clean-dashboard">
+        <section class="hero-stage glass simplified-hero">
             <div class="hero-copy">
-                <span class="tag">Control Room</span>
-                <h1>Predictive Maintenance<br><span>Intelligence System</span></h1>
-                <p>Threshold-calibrated monitoring for machine stress, failure capture, and intervention timing. This control room prioritizes operational truth over flattering metrics.</p>
-                <div class="hero-stats-row">
-                    <article class="hero-stat-card">
-                        <span>Winning Model</span>
-                        <strong id="stat-model">--</strong>
-                    </article>
-                    <article class="hero-stat-card">
-                        <span>Operational Score</span>
-                        <strong id="stat-r2">--</strong>
-                    </article>
-                    <article class="hero-stat-card accent">
-                        <span>Captured Failures</span>
-                        <strong id="stat-savings">--</strong>
-                    </article>
-                </div>
+                <span class="tag">Main page</span>
+                <h1>Predict machine failure in one clear check.</h1>
+                <p>Enter the current machine conditions, run the model, and immediately see the failure probability, risk band, and maintenance action. The page keeps the decision first and the model evidence below it.</p>
             </div>
-
-            <div class="hero-aside">
-                <article class="glass aside-panel">
-                    <div class="panel-head compact">
-                        <span class="tag">Live Thresholding</span>
-                        <h2>Operating Envelope</h2>
-                    </div>
-                    <div class="ops-grid">
-                        <div class="ops-card"><span>Alert Rate</span><strong id="ops-alert-rate">--</strong></div>
-                        <div class="ops-card"><span>Balanced Accuracy</span><strong id="ops-precision">--</strong></div>
-                        <div class="ops-card"><span>Recall</span><strong id="ops-recall">--</strong></div>
-                        <div class="ops-card"><span>Threshold</span><strong id="ops-threshold">--</strong></div>
-                    </div>
-                    <div class="signal-band">
-                        <div class="signal-labels"><span>Stable</span><span>Warning</span><span>Critical</span></div>
-                        <div class="signal-track"><span id="signal-thumb"></span></div>
-                    </div>
+            <div class="hero-stats-row quick-stats">
+                <article class="hero-stat-card">
+                    <span>Best model</span>
+                    <strong id="stat-model">--</strong>
+                </article>
+                <article class="hero-stat-card">
+                    <span>Balanced accuracy</span>
+                    <strong id="stat-balanced">--</strong>
+                </article>
+                <article class="hero-stat-card accent">
+                    <span>Failures caught</span>
+                    <strong id="stat-captured">--</strong>
+                </article>
+                <article class="hero-stat-card">
+                    <span>Alert rate</span>
+                    <strong id="stat-alert">--</strong>
                 </article>
             </div>
         </section>
 
-        <section class="dashboard-grid">
-            <article class="glass command-panel span-7">
+        <section class="decision-layout">
+            <article class="glass command-panel machine-check-card">
                 <div class="panel-head">
-                    <span class="tag">Inference</span>
-                    <h2>Scenario Simulator</h2>
-                    <p>Run live machine-state scenarios against the calibrated failure detector.</p>
+                    <span class="tag">1. Machine inputs</span>
+                    <h2>Run a machine check</h2>
+                    <p>Use real sensor values or choose a preset to understand the behavior quickly.</p>
                 </div>
-                <form id="prediction-form" class="sim-form">
-                    <label>Air Temperature K<input name="air_temp_k" type="number" step="0.1" value="298.1"></label>
-                    <label>Process Temperature K<input name="process_temp_k" type="number" step="0.1" value="308.6"></label>
-                    <label>Rotational Speed RPM<input name="rotational_speed" type="number" step="1" value="1551"></label>
-                    <label>Torque Nm<input name="torque" type="number" step="0.1" value="42.8"></label>
-                    <label>Tool Wear Min<input name="tool_wear" type="number" step="1" value="0"></label>
-                    <label>Product Type
+
+                <div class="preset-row" aria-label="Scenario presets">
+                    <button type="button" data-preset="stable">Stable example</button>
+                    <button type="button" data-preset="warning">Warning example</button>
+                    <button type="button" data-preset="critical">Critical example</button>
+                </div>
+
+                <form id="prediction-form" class="sim-form clean-form">
+                    <label>Air temperature (K)<input name="air_temp_k" type="number" step="0.1" value="298.1"></label>
+                    <label>Process temperature (K)<input name="process_temp_k" type="number" step="0.1" value="308.6"></label>
+                    <label>Rotational speed (RPM)<input name="rotational_speed" type="number" step="1" value="1551"></label>
+                    <label>Torque (Nm)<input name="torque" type="number" step="0.1" value="42.8"></label>
+                    <label>Tool wear (min)<input name="tool_wear" type="number" step="1" value="0"></label>
+                    <label>Product type
                         <select name="product_type">
-                            <option value="L">L</option>
-                            <option value="M" selected>M</option>
-                            <option value="H">H</option>
+                            <option value="L">L - low grade</option>
+                            <option value="M" selected>M - medium grade</option>
+                            <option value="H">H - high grade</option>
                         </select>
                     </label>
-                    <button class="cta" type="submit">Run Prediction</button>
+                    <label class="model-field">Model
+                        <select name="model_name" id="model-selector">
+                            <option value="">Best model</option>
+                        </select>
+                    </label>
+                    <button type="submit" class="cta">RUN MACHINE CHECK</button>
                 </form>
-                <div id="prediction-result" class="result-panel cinematic-result">Waiting for first simulation.</div>
             </article>
 
-            <article class="glass summary-panel span-5">
-                <div class="panel-head">
-                    <span class="tag">Diagnostic Brief</span>
-                    <h2>Model Summary</h2>
-                    <p>The headline reflects operational score first, then ranking metrics and deployment threshold.</p>
-                </div>
-                <pre id="summary-box" class="mono">Loading...</pre>
-                <div id="feature-chips" class="chip-grid"></div>
-            </article>
-
-            <article class="glass data-panel span-4">
+            <article id="result-card" class="glass result-card risk-stable">
                 <div class="panel-head compact">
-                    <span class="tag">Operations</span>
-                    <h2>System Metrics</h2>
+                    <span class="tag">2. Result</span>
+                    <h2 id="result-status">Waiting for prediction</h2>
+                </div>
+                <div class="probability-readout">
+                    <strong id="result-probability">--</strong>
+                    <span>failure probability</span>
+                </div>
+                <div class="signal-band result-signal">
+                    <div class="signal-labels"><span>Stable</span><span>Warning</span><span>Critical</span></div>
+                    <div class="signal-track"><span id="probability-fill"></span><span id="signal-thumb"></span></div>
+                </div>
+                <div class="action-box">
+                    <span class="label">Recommended action</span>
+                    <strong id="result-action">Run a check to get the action.</strong>
+                    <p id="result-explainer">The result stays visible here so the decision is never hidden below the form.</p>
+                </div>
+                <div class="result-meta-grid">
+                    <div><span class="label">Threshold</span><strong id="result-threshold">--</strong></div>
+                    <div><span class="label">Model</span><strong id="result-model">--</strong></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="explain-grid">
+            <article class="glass summary-panel explanation-card">
+                <div class="panel-head">
+                    <span class="tag">3. How to read it</span>
+                    <h2>Simple decision logic</h2>
+                </div>
+                <div class="decision-steps">
+                    <div><span>01</span><strong>Probability</strong><p>How likely the machine is to fail.</p></div>
+                    <div><span>02</span><strong>Risk band</strong><p>Stable, warning, or critical based on the calibrated threshold.</p></div>
+                    <div><span>03</span><strong>Action</strong><p>The maintenance response to take now.</p></div>
+                </div>
+            </article>
+
+            <article class="glass summary-panel explanation-card">
+                <div class="panel-head">
+                    <span class="tag">Model brief</span>
+                    <h2>Why this model</h2>
+                </div>
+                <p id="summary-box" class="plain-summary">Loading model summary...</p>
+                <div class="mini-kpis">
+                    <div><span>Features</span><strong id="stat-features">--</strong></div>
+                    <div><span>Threshold</span><strong id="stat-threshold">--</strong></div>
+                </div>
+            </article>
+        </section>
+
+        <section class="evidence-grid">
+            <article class="glass data-panel">
+                <div class="panel-head compact">
+                    <span class="tag">Operational metrics</span>
+                    <h2>What matters in production</h2>
                 </div>
                 <div id="metrics-box" class="metric-list"></div>
             </article>
 
-            <article class="glass data-panel span-8">
+            <article class="glass data-panel evidence-wide">
                 <div class="panel-head compact">
-                    <span class="tag">Competition</span>
-                    <h2>Model Board</h2>
+                    <span class="tag">Model comparison</span>
+                    <h2>Best models on the test set</h2>
                 </div>
                 <div id="leaderboard" class="leaderboard"></div>
             </article>
 
-            <article class="glass data-panel span-6">
+            <article class="glass data-panel evidence-wide">
                 <div class="panel-head compact">
-                    <span class="tag">Thresholds</span>
-                    <h2>Alert Policy Sweep</h2>
+                    <span class="tag">Threshold sweep</span>
+                    <h2>How strict the alert policy is</h2>
                 </div>
-                <div id="threshold-preview" class="leaderboard"></div>
+                <div id="threshold-preview" class="threshold-list"></div>
             </article>
 
-            <article class="glass data-panel span-6">
+            <article class="glass data-panel">
                 <div class="panel-head compact">
-                    <span class="tag">Observations</span>
-                    <h2>Holdout Cases</h2>
+                    <span class="tag">Inputs used</span>
+                    <h2>Readable feature set</h2>
                 </div>
-                <div id="observations" class="observations"></div>
-            </article>
-
-            <article class="glass data-panel span-12">
-                <div class="panel-head compact">
-                    <span class="tag">Workflow</span>
-                    <h2>Production Stages</h2>
-                </div>
-                <div id="workflow-stages" class="leaderboard"></div>
+                <div id="feature-chips" class="chip-grid"></div>
             </article>
         </section>
     </main>
 
-    <script src="js/app.js?v=3.0"></script>
+    <script src="js/app.js?v=5.0"></script>
 </body>
 </html>

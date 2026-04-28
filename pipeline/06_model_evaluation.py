@@ -16,7 +16,7 @@ def main() -> None:
 
     tn, fp, fn, tp = artifact["confusion_matrix"][0][0], artifact["confusion_matrix"][0][1], artifact["confusion_matrix"][1][0], artifact["confusion_matrix"][1][1]
     threshold_curve = threshold_report(y_true, probabilities)
-    best_threshold = max(threshold_curve, key=lambda row: row["balanced_accuracy"])
+    best_balanced_threshold = max(threshold_curve, key=lambda row: row["balanced_accuracy"])
 
     report = {
         "model_name": artifact["model_name"],
@@ -33,7 +33,8 @@ def main() -> None:
             "captured_failures": float(tp / max(tp + fn, 1)),
             "false_alarm_share": float(fp / max(tp + fp, 1)),
             "operational_score": artifact["test_metrics"]["balanced_accuracy"],
-            "recommended_threshold": best_threshold["threshold"],
+            "recommended_threshold": artifact["threshold"],
+            "best_balanced_threshold": best_balanced_threshold["threshold"],
         },
         "threshold_curve": threshold_curve,
     }

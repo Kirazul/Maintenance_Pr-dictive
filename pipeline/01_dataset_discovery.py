@@ -4,10 +4,7 @@ import json
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str((Path(__file__).resolve().parents[1].parent / "Maintenance_Pr-dictive_4.1-main" / "src").resolve()))
-
-from etl.data_loader import DataLoader
-
+import pandas as pd
 from paths import RAW_DATA_DIR, ensure_runtime_dirs, stage_dir
 
 
@@ -20,13 +17,23 @@ INPUT_FILES = [
 def main() -> None:
     ensure_runtime_dirs()
     output_dir = stage_dir("01_discovery")
-    loader = DataLoader(str((RAW_DATA_DIR.parent / "config.yaml").resolve()))
-    loader.data_dir = RAW_DATA_DIR
 
     manifest = {"datasets": []}
     for filename in INPUT_FILES:
-        df = loader.load_csv(filename)
-        profile = loader.get_data_profile(df)
+        path = RAW_DATA_DIR / filename
+        if not path.exists():
+            print(f"Warning: {filename} not found in {RAW_DATA_DIR}")
+            continue
+            
+        df = pd.read_csv(path)
+        profile = {
+            "columns": list(df.columns),
+            "dtypes": {k: str(v) for k, v in df.dtypes.items()},
+            "null_counts": df.isna().sum().to_dict(),
+            "sample": df.head(5).to_dict(orient="records"),
+            "stats": df.describe().to_dict()
+        }
+        
         output_path = output_dir / f"{filename.replace('.csv', '')}_profile.json"
         with open(output_path, "w", encoding="utf-8") as handle:
             json.dump(profile, handle, indent=2, default=str)
@@ -35,7 +42,7 @@ def main() -> None:
                 "file": filename,
                 "rows": int(df.shape[0]),
                 "columns": int(df.shape[1]),
-                "profile": str(output_path.relative_to(output_dir.parent.parent.parent)),
+                "profile": str(output_path.name),
             }
         )
 

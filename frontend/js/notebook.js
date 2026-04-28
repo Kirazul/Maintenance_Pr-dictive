@@ -10,9 +10,31 @@ function initRouteTransitions() {
             document.body.classList.add('page-exit');
             setTimeout(() => {
                 window.location.href = link.href;
-            }, 360);
+            }, 260);
         });
     });
+}
+
+function setText(id, value) {
+    const node = document.getElementById(id);
+    if (node) node.textContent = value;
+}
+
+function formatPercent(value, digits = 1) {
+    const number = Number(value);
+    return Number.isFinite(number) ? `${(number * 100).toFixed(digits)}%` : '--';
+}
+
+function formatDecimal(value, digits = 2) {
+    const number = Number(value);
+    return Number.isFinite(number) ? number.toFixed(digits) : '--';
+}
+
+async function fetchJson(url, options) {
+    const response = await fetch(url, options);
+    const payload = await response.json();
+    if (!response.ok) throw new Error(payload.detail || `Request failed: ${url}`);
+    return payload;
 }
 
 tabs.forEach((button) => {
@@ -24,14 +46,32 @@ tabs.forEach((button) => {
     });
 });
 
-function setSceneStatus(text) {
-    const node = document.getElementById('scene-status');
-    if (node) node.textContent = text;
+function normalizeCellLabels() {
+    document.querySelectorAll('.cell').forEach((cell, index) => {
+        const number = index + 1;
+        const label = cell.querySelector('.cell-label');
+        const title = cell.querySelector('.cell-title');
+        if (label && !executedCellIndexes.has(index)) label.textContent = 'In [ ]:';
+        if (title) title.textContent = `Cell ${number}`;
+    });
 }
 
-function createMetricRow(items) {
+document.querySelectorAll('a[href^="#chapter"], a[href="#code-tab-view"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        document.querySelector('[data-target="code-tab-view"]').click();
+        const target = document.querySelector(link.getAttribute('href')) || document.getElementById('code-tab-view');
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
+    });
+});
+
+function setSceneStatus(text) {
+    setText('scene-status', text);
+}
+
+function createMetricRow(items, options = {}) {
     const row = document.createElement('div');
-    row.className = 'leaderboard-row';
+    row.className = options.selected ? 'leaderboard-row selected-policy-row' : 'leaderboard-row';
     row.innerHTML = items.map(([label, value]) => `<div><span class="label">${label}</span><span class="value">${value}</span></div>`).join('');
     return row;
 }
@@ -68,6 +108,7 @@ async function executeCell(index) {
     const cells = Array.from(document.querySelectorAll('.cell'));
     const cell = cells[index];
     if (!cell) return;
+
     const output = cell.querySelector('.output');
     const code = cell.querySelector('.code-editor').value;
     const response = await fetch('/run-cell', {
@@ -79,6 +120,7 @@ async function executeCell(index) {
     output.innerHTML = '';
     output.appendChild(prettifyOutput(payload));
     cell.querySelector('.cell-label').textContent = `In [${index + 1}]:`;
+    cell.querySelector('.cell-title').textContent = `Cell ${index + 1}`;
     executedCellIndexes.add(index);
 }
 
@@ -86,7 +128,7 @@ function runCell(button) {
     const cell = button.closest('.cell');
     const cells = Array.from(document.querySelectorAll('.cell'));
     const index = cells.indexOf(cell);
-    if (index < 0) return;
+    if (index < 0) return null;
     setSceneStatus(`Running cell ${index + 1}`);
     return executeCell(index).then(() => setSceneStatus(`Completed cell ${index + 1}`));
 }
@@ -98,8 +140,8 @@ async function resetKernel() {
         body: JSON.stringify({ code: '', reset: true }),
     });
     document.querySelectorAll('.output').forEach((node) => { node.innerHTML = ''; });
-    document.querySelectorAll('.cell-label').forEach((node) => { node.textContent = 'In [ ]:'; });
     executedCellIndexes.clear();
+    normalizeCellLabels();
     setSceneStatus('Kernel reset');
 }
 
@@ -108,55 +150,83 @@ async function runAllCells() {
     await resetKernel();
     const cells = Array.from(document.querySelectorAll('.cell'));
     for (let index = 0; index < cells.length; index += 1) {
+        setSceneStatus(`Running cell ${index + 1} of ${cells.length}`);
         await executeCell(index);
     }
     setSceneStatus('Full lab completed');
 }
 
 function openRawNotebook() {
-    window.open('/api/source/rendered?path=Maintenance_Complete_Pipeline.ipynb', '_blank', 'noopener');
+    window.open('/api/source/rendered?path=analysis/notebooks/Maintenance_Complete_Pipeline.ipynb', '_blank', 'noopener');
+}
+
+function renderLeaderboard(rows, bestModel) {
+    const leaderboard = document.getElementById('lab-leaderboard');
+    leaderboard.innerHTML = '';
+    rows.forEach((row) => {
+        leaderboard.appendChild(createMetricRow([
+            ['Model', row.model_name],
+            ['Validation balanced acc', formatPercent(row.validation_balanced_accuracy)],
+            ['Test precision', formatPercent(row.test_precision)],
+            ['Test recall', formatPercent(row.test_recall)],
+        ], { selected: row.model_name === bestModel }));
+    });
+}
+
+function renderThresholds(rows, selectedThreshold) {
+    const thresholds = document.getElementById('threshold-grid');
+    thresholds.innerHTML = '';
+    rows.slice(0, 10).forEach((row) => {
+        thresholds.appendChild(createMetricRow([
+            ['Threshold', formatDecimal(row.threshold, 2)],
+            ['Balanced accuracy', formatPercent(row.balanced_accuracy)],
+            ['Precision', formatPercent(row.precision)],
+            ['Recall', formatPercent(row.recall)],
+        ], { selected: Number(row.threshold) === Number(selectedThreshold) }));
+    });
 }
 
 async function loadDashboard() {
-    const summary = await fetch('/model_summary').then((r) => r.json());
-    const dashboard = await fetch('/dashboard').then((r) => r.json());
-    document.getElementById('hero-best-model').textContent = summary.best_model;
-    document.getElementById('hero-auc').textContent = Number(summary.operational_score).toFixed(4);
-    document.getElementById('hero-f1').textContent = Number(summary.test_f1).toFixed(4);
-    document.getElementById('hero-alert-rate').textContent = `${(Number(summary.alert_rate) * 100).toFixed(1)}%`;
-    document.getElementById('dash-best-model').textContent = summary.best_model;
-    document.getElementById('dash-roc-auc').textContent = Number(summary.operational_score).toFixed(4);
-    document.getElementById('dash-captured').textContent = `${(Number(summary.captured_failures) * 100).toFixed(1)}%`;
-    document.getElementById('dash-alert-rate').textContent = `${(Number(summary.alert_rate) * 100).toFixed(1)}%`;
+    try {
+        const [summary, dashboard] = await Promise.all([
+            fetchJson('/model_summary'),
+            fetchJson('/dashboard'),
+        ]);
+        const balanced = summary.test_balanced_accuracy || summary.operational_score || dashboard.model.metrics.balanced_accuracy;
+        const captured = summary.captured_failures || summary.test_recall;
+        const threshold = summary.recommended_threshold || summary.threshold || dashboard.evaluation.operations_metrics.recommended_threshold;
 
-    const leaderboard = document.getElementById('lab-leaderboard');
-    dashboard.leaderboard.forEach((row) => leaderboard.appendChild(createMetricRow([
-        ['Model', row.model_name],
-        ['Validation Balanced Accuracy', Number(row.validation_balanced_accuracy).toFixed(4)],
-        ['Test F1', Number(row.test_f1).toFixed(4)],
-        ['Test ROC AUC', Number(row.test_roc_auc).toFixed(4)],
-    ])));
+        setText('hero-best-model', summary.best_model);
+        setText('hero-balanced', formatPercent(balanced));
+        setText('hero-captured', formatPercent(captured));
+        setText('hero-alert-rate', formatPercent(summary.alert_rate));
+        setText('lab-sync-note', `${summary.best_model} is the active API model. /predict uses threshold ${formatDecimal(threshold, 2)}.`);
 
-    const thresholds = document.getElementById('threshold-grid');
-    dashboard.evaluation.threshold_curve.slice(0, 8).forEach((row) => thresholds.appendChild(createMetricRow([
-        ['Threshold', row.threshold],
-        ['Balanced Accuracy', Number(row.balanced_accuracy).toFixed(3)],
-        ['Precision', Number(row.precision).toFixed(3)],
-        ['Recall', Number(row.recall).toFixed(3)],
-    ])));
+        setText('dash-best-model', summary.best_model);
+        setText('dash-balanced', formatPercent(balanced));
+        setText('dash-captured', formatPercent(captured));
+        setText('dash-threshold', formatDecimal(threshold, 2));
+
+        renderLeaderboard(dashboard.leaderboard, summary.best_model);
+        renderThresholds(dashboard.evaluation.threshold_curve, threshold);
+    } catch (error) {
+        setText('lab-sync-note', error.message);
+        setSceneStatus('Dashboard data failed to load');
+    }
 }
 
 async function loadSources() {
     const container = document.getElementById('source-snippets');
     container.innerHTML = '';
     const paths = [
-        'pipeline/02_dataset_cleaning.py',
-        'pipeline/04_feature_engineering.py',
+        'pipeline/workflow.py',
+        'pipeline/01_dataset_discovery.py',
         'pipeline/05_model_training.py',
         'api/app.py',
     ];
+
     for (const path of paths) {
-        const payload = await fetch(`/api/source?path=${encodeURIComponent(path)}`).then((r) => r.json());
+        const payload = await fetchJson(`/api/source?path=${encodeURIComponent(path)}`);
         const card = document.createElement('article');
         card.className = 'source-card';
         const excerpt = payload.content.split('\n').slice(0, 60).join('\n');
@@ -171,6 +241,7 @@ window.runCell = runCell;
 window.openRawNotebook = openRawNotebook;
 
 loadDashboard();
-loadSources();
+loadSources().catch((error) => setSceneStatus(error.message));
+normalizeCellLabels();
 setSceneStatus('Ready to run');
 initRouteTransitions();

@@ -26,11 +26,66 @@ matplotlib.use("Agg")
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 FRONTEND_DIR = PROJECT_ROOT / "frontend"
+RAPPORT_DIR = PROJECT_ROOT / "rapport"
 DATASET_PATH = PROJECT_ROOT / "data" / "processed" / "03_training_dataset" / "test_data.csv"
 MODEL_PATH = PROJECT_ROOT / "artifacts" / "05_best_model.joblib"
 PAYLOAD_PATH = FRONTEND_DIR / "assets" / "data" / "dashboard_payload.json"
 SUMMARY_PATH = FRONTEND_DIR / "model_summary.json"
-RAW_NOTEBOOK_PATH = PROJECT_ROOT / "Maintenance_Complete_Pipeline.ipynb"
+RAW_NOTEBOOK_PATH = PROJECT_ROOT / "analysis" / "notebooks" / "Maintenance_Complete_Pipeline.ipynb"
+MODELS_DIR = PROJECT_ROOT / "artifacts" / "models"
+
+class ModelManager:
+    _instance = None
+    _lock = threading.Lock()
+    
+    def __new__(cls):
+        with cls._lock:
+            if cls._instance is None:
+                cls._instance = super(ModelManager, cls).__new__(cls)
+                cls._instance.models = {}
+                cls._instance.metadata = {}
+            return cls._instance
+
+    def get_available_models(self) -> list[str]:
+        if not MODELS_DIR.exists():
+            return []
+        return [p.stem for p in MODELS_DIR.glob("*.joblib")]
+
+    def load_model(self, model_name: str):
+        if model_name in self.models:
+            return self.models[model_name]
+            
+        path = MODELS_DIR / f"{model_name}.joblib"
+        if not path.exists():
+            raise HTTPException(status_code=404, detail=f"Model {model_name} not found")
+            
+        artifact = joblib.load(path)
+        
+        if "tf_model_path" in artifact:
+            # Load TF model
+            import tensorflow as tf
+            tf_model_path = MODELS_DIR / artifact["tf_model_path"]
+            keras_model = tf.keras.models.load_model(tf_model_path)
+            
+            # Reconstruct the wrapper
+            class TFWrapper:
+                def __init__(self, model, preprocessor):
+                    self.model = model
+                    self.preprocessor = preprocessor
+                def predict_proba(self, X):
+                    X_proc = self.preprocessor.transform(X)
+                    if hasattr(X_proc, "toarray"):
+                        X_proc = X_proc.toarray()
+                    probs = self.model.predict(X_proc, verbose=0)
+                    return np.hstack([1 - probs, probs])
+
+            import numpy as np
+            artifact["pipeline"] = TFWrapper(keras_model, artifact["preprocessor"])
+            
+        self.models[model_name] = artifact
+        return artifact
+
+model_manager = ModelManager()
 
 NOTEBOOK_LOCK = threading.Lock()
 NOTEBOOK_GLOBALS: dict[str, object] = {}
@@ -40,6 +95,7 @@ app = FastAPI(title="Predictive Maintenance Intelligence API", version="1.0.0")
 app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
 app.mount("/css", StaticFiles(directory=str(FRONTEND_DIR / "css")), name="css")
 app.mount("/js", StaticFiles(directory=str(FRONTEND_DIR / "js")), name="js")
+app.mount("/rapport", StaticFiles(directory=str(RAPPORT_DIR)), name="rapport")
 
 
 class PredictionRequest(BaseModel):
@@ -54,6 +110,7 @@ class PredictionRequest(BaseModel):
 
 def _init_notebook_globals() -> dict[str, object]:
     import numpy as np
+    import requests
 
     if str(PROJECT_ROOT) not in sys.path:
         sys.path.insert(0, str(PROJECT_ROOT))
@@ -62,13 +119,21 @@ def _init_notebook_globals() -> dict[str, object]:
 
     from pipeline.workflow import canonicalize_frames, clean_dataset, engineer_features, feature_columns, load_raw_frames
 
+    PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+    ARTIFACTS_DIR = PROJECT_ROOT / "artifacts"
+    FRONTEND_DIR = PROJECT_ROOT / "frontend"
+
     return {
         "__name__": "__notebook__",
         "PROJECT_ROOT": PROJECT_ROOT,
+        "PROCESSED_DIR": PROCESSED_DIR,
+        "ARTIFACTS_DIR": ARTIFACTS_DIR,
+        "FRONTEND_DIR": FRONTEND_DIR,
         "Path": Path,
         "json": json,
         "pd": pd,
         "np": np,
+        "requests": requests,
         "load_raw_frames": load_raw_frames,
         "canonicalize_frames": canonicalize_frames,
         "clean_dataset": clean_dataset,
@@ -120,6 +185,65 @@ def _load_artifact() -> dict:
     return joblib.load(MODEL_PATH)
 
 
+def _load_dashboard_payload() -> dict:
+    if not PAYLOAD_PATH.exists():
+        raise HTTPException(status_code=503, detail="Dashboard payload not found. Run pipeline first.")
+    payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    summary = _normalized_model_summary(payload)
+    operations = payload.setdefault("evaluation", {}).setdefault("operations_metrics", {})
+    operations["recommended_threshold"] = summary["recommended_threshold"]
+    payload.setdefault("model", {}).setdefault("metrics", {}).update({
+        "accuracy": summary.get("test_accuracy"),
+        "balanced_accuracy": summary.get("test_balanced_accuracy"),
+        "precision": summary.get("test_precision"),
+        "recall": summary.get("test_recall"),
+        "f1": summary.get("test_f1"),
+        "roc_auc": summary.get("test_roc_auc"),
+        "average_precision": summary.get("test_average_precision"),
+    })
+    return payload
+
+
+def _normalized_model_summary(dashboard_payload: dict | None = None) -> dict:
+    if not SUMMARY_PATH.exists():
+        raise HTTPException(status_code=503, detail="Model summary not found. Run pipeline first.")
+
+    summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+    payload = dashboard_payload
+    if payload is None and PAYLOAD_PATH.exists():
+        payload = json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+
+    if not payload:
+        return summary
+
+    best_model = summary.get("best_model") or payload.get("model", {}).get("name") or payload.get("evaluation", {}).get("model_name")
+    leaderboard = payload.get("leaderboard", [])
+    best_row = next((row for row in leaderboard if row.get("model_name") == best_model), leaderboard[0] if leaderboard else {})
+    evaluation = payload.get("evaluation", {})
+    metrics = evaluation.get("classification_metrics", {})
+    operations = evaluation.get("operations_metrics", {})
+    threshold = best_row.get("threshold") or summary.get("threshold") or summary.get("recommended_threshold") or operations.get("recommended_threshold")
+
+    summary.update({
+        "best_model": best_model,
+        "operational_score": metrics.get("balanced_accuracy", summary.get("operational_score")),
+        "test_accuracy": metrics.get("accuracy", summary.get("test_accuracy")),
+        "test_balanced_accuracy": metrics.get("balanced_accuracy", summary.get("test_balanced_accuracy", summary.get("operational_score"))),
+        "test_precision": metrics.get("precision", summary.get("test_precision")),
+        "test_recall": metrics.get("recall", summary.get("test_recall", summary.get("captured_failures"))),
+        "test_f1": metrics.get("f1", summary.get("test_f1")),
+        "test_roc_auc": metrics.get("roc_auc", summary.get("test_roc_auc")),
+        "test_average_precision": metrics.get("average_precision", summary.get("test_average_precision")),
+        "alert_rate": operations.get("alert_rate", summary.get("alert_rate")),
+        "captured_failures": operations.get("captured_failures", metrics.get("recall", summary.get("captured_failures"))),
+        "false_alarm_share": operations.get("false_alarm_share"),
+        "failure_prevalence": operations.get("failure_prevalence"),
+        "threshold": threshold,
+        "recommended_threshold": threshold,
+    })
+    return summary
+
+
 def _prepare_frame(payload: PredictionRequest, numeric_features: list[str], categorical_features: list[str]) -> pd.DataFrame:
     row = {
         "air_temp_k": payload.air_temp_k,
@@ -158,6 +282,19 @@ def presentation() -> FileResponse:
     return FileResponse(FRONTEND_DIR / "presentation.html")
 
 
+@app.get("/report")
+def report() -> FileResponse:
+    return FileResponse(FRONTEND_DIR / "report.html")
+
+
+@app.get("/rapport/{filename}")
+def rapport_file(filename: str) -> FileResponse:
+    pdf_path = RAPPORT_DIR / filename
+    if not pdf_path.exists():
+        raise HTTPException(status_code=404, detail=f"File not found: {filename}")
+    return FileResponse(pdf_path, media_type="application/pdf")
+
+
 @app.get("/health")
 def health() -> dict:
     return {"status": "ok"}
@@ -165,9 +302,7 @@ def health() -> dict:
 
 @app.get("/model_summary")
 def model_summary() -> dict:
-    if not SUMMARY_PATH.exists():
-        raise HTTPException(status_code=503, detail="Model summary not found. Run pipeline first.")
-    return json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+    return _normalized_model_summary()
 
 
 @app.get("/api/source")
@@ -229,9 +364,7 @@ def run_cell(payload: dict[str, object]) -> dict:
 
 @app.get("/dashboard")
 def dashboard() -> dict:
-    if not PAYLOAD_PATH.exists():
-        raise HTTPException(status_code=503, detail="Dashboard payload not found. Run pipeline first.")
-    return json.loads(PAYLOAD_PATH.read_text(encoding="utf-8"))
+    return _load_dashboard_payload()
 
 
 @app.get("/sample_observations")
@@ -253,17 +386,46 @@ def sample_observations(limit: int = 6) -> list[dict]:
     return df[available].head(limit).to_dict(orient="records")
 
 
+@app.get("/api/models")
+def list_models() -> dict:
+    return {"models": model_manager.get_available_models()}
+
+
 @app.post("/predict")
-def predict(payload: PredictionRequest) -> dict:
-    artifact = _load_artifact()
-    frame = _prepare_frame(payload, artifact["numeric_features"], artifact["categorical_features"])
-    probability = float(artifact["pipeline"].predict_proba(frame)[0, 1])
-    prediction = int(probability >= artifact["threshold"])
+def predict(payload: PredictionRequest, model_name: str = Query(None)) -> dict:
+    # Use best model if none specified
+    if not model_name:
+        summary = model_summary()
+        model_name = summary.get("best_model", "GradientBoosting")
+        
+    try:
+        artifact = model_manager.load_model(model_name)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading model: {str(e)}")
+        
+    pipeline = artifact["pipeline"]
+    threshold = artifact.get("threshold", 0.5)
+    numeric = artifact["numeric_features"]
+    categorical = artifact["categorical_features"]
+    
+    # Prepare input frame
+    frame = _prepare_frame(payload, numeric, categorical)
+    
+    # Run prediction
+    try:
+        probability = float(pipeline.predict_proba(frame)[0, 1])
+    except Exception as e:
+        # Fallback if prediction fails (e.g. feature mismatch)
+        print(f"Prediction failed for {model_name}: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        
+    prediction = int(probability >= threshold)
+    
     return {
-        "model": artifact["model_name"],
-        "threshold": artifact["threshold"],
+        "model": model_name,
+        "threshold": threshold,
         "failure_probability": probability,
         "predicted_failure": prediction,
-        "recommended_action": "inspect immediately" if probability >= max(0.65, artifact["threshold"]) else "schedule inspection" if probability >= max(0.35, artifact["threshold"] * 0.7) else "continue monitoring",
-        "risk_band": "critical" if probability >= max(0.65, artifact["threshold"]) else "warning" if probability >= max(0.35, artifact["threshold"] * 0.7) else "stable",
+        "recommended_action": "inspect immediately" if probability >= 0.65 else "schedule inspection" if probability >= threshold * 0.7 else "continue monitoring",
+        "risk_band": "critical" if probability >= 0.65 else "warning" if probability >= threshold * 0.7 else "stable",
     }

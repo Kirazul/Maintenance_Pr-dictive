@@ -16,8 +16,17 @@ from sklearn.metrics import accuracy_score, average_precision_score, balanced_ac
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
+from sklearn.neural_network import MLPClassifier
 
-from paths import ARTIFACTS_DIR, LEGACY_ROOT, RAW_DATA_DIR
+try:
+    import tensorflow as tf
+    from tensorflow.keras.models import Sequential
+    from tensorflow.keras.layers import Dense, Dropout, Input
+    TF_AVAILABLE = True
+except ImportError:
+    TF_AVAILABLE = False
+
+from paths import ARTIFACTS_DIR, PROJECT_ROOT, RAW_DATA_DIR
 
 
 RAW_FILES = {
@@ -254,15 +263,39 @@ def evaluate_classifier(model: Pipeline, X: pd.DataFrame, y: pd.Series, threshol
     }
 
 
-def select_operating_threshold(y_true: pd.Series, probabilities: np.ndarray) -> float:
+def select_operating_threshold(y_true: pd.Series, probabilities: np.ndarray, min_precision: float = 0.75) -> float:
+    """
+    Select threshold balancing balanced accuracy and minimum precision requirement.
+    
+    Args:
+        y_true: True labels
+        probabilities: Predicted probabilities
+        min_precision: Minimum acceptable precision (default 0.75 to reduce false alarms)
+    
+    Returns:
+        Selected threshold
+    """
     best_threshold = 0.5
     best_score = -1.0
+    
     for threshold in np.arange(0.1, 0.91, 0.05):
         predictions = (probabilities >= threshold).astype(int)
-        score = balanced_accuracy_score(y_true, predictions)
+        bal_acc = balanced_accuracy_score(y_true, predictions)
+        prec = precision_score(y_true, predictions, zero_division=0)
+        rec = recall_score(y_true, predictions, zero_division=0)
+        
+        # Combined score: prioritize balanced accuracy but require minimum precision
+        if prec >= min_precision:
+            # If precision meets threshold, use balanced accuracy
+            score = bal_acc
+        else:
+            # Penalize heavily if precision is too low
+            score = bal_acc * (prec / min_precision)
+        
         if score > best_score:
             best_score = score
             best_threshold = float(round(threshold, 2))
+    
     return best_threshold
 
 
@@ -280,9 +313,12 @@ def train_model_suite(train_df: pd.DataFrame, validation_df: pd.DataFrame, test_
         "RandomForest": RandomForestClassifier(n_estimators=300, random_state=42, n_jobs=-1, class_weight="balanced_subsample"),
         "ExtraTrees": ExtraTreesClassifier(n_estimators=400, random_state=42, n_jobs=-1, class_weight="balanced"),
         "GradientBoosting": GradientBoostingClassifier(random_state=42),
+        "NeuralNetwork_MLP": MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000, random_state=42),
     }
 
     results: list[ModelResult] = []
+    
+    # Handle Scikit-learn models
     for name, estimator in candidates.items():
         pipeline = Pipeline([
             ("preprocessor", build_preprocessor(numeric, categorical)),
@@ -294,6 +330,58 @@ def train_model_suite(train_df: pd.DataFrame, validation_df: pd.DataFrame, test_
         validation_metrics = evaluate_classifier(pipeline, X_validation, y_validation, threshold)
         test_metrics = evaluate_classifier(pipeline, X_test, y_test, threshold)
         results.append(ModelResult(name=name, pipeline=pipeline, validation_metrics=validation_metrics, test_metrics=test_metrics, threshold=threshold))
+
+    # Handle TensorFlow model if available
+    if TF_AVAILABLE:
+        name = "DeepLearning_TF"
+        preprocessor = build_preprocessor(numeric, categorical)
+        X_train_proc = preprocessor.fit_transform(X_train)
+        X_validation_proc = preprocessor.transform(X_validation)
+        X_test_proc = preprocessor.transform(X_test)
+        
+        # Convert to dense if sparse
+        if hasattr(X_train_proc, "toarray"):
+            X_train_proc = X_train_proc.toarray()
+            X_validation_proc = X_validation_proc.toarray()
+            X_test_proc = X_test_proc.toarray()
+
+        input_dim = X_train_proc.shape[1]
+        
+        model = Sequential([
+            Input(shape=(input_dim,)),
+            Dense(64, activation='relu'),
+            Dropout(0.2),
+            Dense(32, activation='relu'),
+            Dropout(0.1),
+            Dense(1, activation='sigmoid')
+        ])
+        
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        
+        # Early stopping could be added here
+        model.fit(X_train_proc, y_train, epochs=50, batch_size=32, verbose=0, 
+                  validation_data=(X_validation_proc, y_validation))
+        
+        # Create a wrapper for the TF model to behave like a sklearn estimator
+        class TFWrapper:
+            def __init__(self, model, preprocessor):
+                self.model = model
+                self.preprocessor = preprocessor
+            def predict_proba(self, X):
+                X_proc = self.preprocessor.transform(X)
+                if hasattr(X_proc, "toarray"):
+                    X_proc = X_proc.toarray()
+                probs = self.model.predict(X_proc, verbose=0)
+                return np.hstack([1 - probs, probs])
+            def fit(self, X, y):
+                pass # Already fitted
+
+        tf_pipeline = TFWrapper(model, preprocessor)
+        validation_probabilities = tf_pipeline.predict_proba(X_validation)[:, 1]
+        threshold = select_operating_threshold(y_validation, validation_probabilities)
+        validation_metrics = evaluate_classifier(tf_pipeline, X_validation, y_validation, threshold)
+        test_metrics = evaluate_classifier(tf_pipeline, X_test, y_test, threshold)
+        results.append(ModelResult(name=name, pipeline=tf_pipeline, validation_metrics=validation_metrics, test_metrics=test_metrics, threshold=threshold))
 
     results.sort(key=lambda item: (item.validation_metrics["balanced_accuracy"], item.validation_metrics["roc_auc"]), reverse=True)
     best = results[0]
@@ -318,6 +406,33 @@ def train_model_suite(train_df: pd.DataFrame, validation_df: pd.DataFrame, test_
         "test_target": y_test.to_numpy(),
         "confusion_matrix": confusion.tolist(),
     }
+    models_dir = ARTIFACTS_DIR / "models"
+    models_dir.mkdir(parents=True, exist_ok=True)
+    
+    for result in results:
+        model_artifact = {
+            "name": result.name,
+            "pipeline": result.pipeline,
+            "threshold": result.threshold,
+            "numeric_features": numeric,
+            "categorical_features": categorical,
+            "test_metrics": result.test_metrics,
+        }
+        
+        # Special handling for TF model saving
+        if "DeepLearning_TF" in result.name:
+            tf_path = models_dir / f"{result.name}.keras"
+            result.pipeline.model.save(tf_path)
+            # Save the preprocessor and metadata without the Keras model object
+            tf_meta = model_artifact.copy()
+            del tf_meta["pipeline"]
+            tf_meta["preprocessor"] = result.pipeline.preprocessor
+            tf_meta["tf_model_path"] = str(tf_path.name)
+            joblib.dump(tf_meta, models_dir / f"{result.name}.joblib")
+        else:
+            joblib.dump(model_artifact, models_dir / f"{result.name}.joblib")
+
+    # Keep compatibility with existing code by saving the best model to the old path
     joblib.dump(artifact, ARTIFACTS_DIR / "05_best_model.joblib")
     return results, artifact
 
@@ -360,7 +475,7 @@ def source_snippets() -> list[dict[str, str]]:
         "pipeline/05_model_training.py",
         "api/app.py",
     ]:
-        path = LEGACY_ROOT.parent / "maintenance" / relative
+        path = PROJECT_ROOT / relative
         if path.exists():
             content = path.read_text(encoding="utf-8")
             snippets.append({"path": relative, "content": "\n".join(content.splitlines()[:60])})

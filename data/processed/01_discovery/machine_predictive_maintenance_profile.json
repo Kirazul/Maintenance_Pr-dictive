@@ -1,8 +1,4 @@
 {
-  "shape": [
-    10000,
-    10
-  ],
   "columns": [
     "UDI",
     "Product ID",
@@ -27,8 +23,7 @@
     "Target": "int64",
     "Failure Type": "object"
   },
-  "memory_usage": 2.3298397064208984,
-  "missing_values": {
+  "null_counts": {
     "UDI": 0,
     "Product ID": 0,
     "Type": 0,
@@ -40,7 +35,69 @@
     "Target": 0,
     "Failure Type": 0
   },
-  "numeric_summary": {
+  "sample": [
+    {
+      "UDI": 1,
+      "Product ID": "M14860",
+      "Type": "M",
+      "Air temperature [K]": 298.1,
+      "Process temperature [K]": 308.6,
+      "Rotational speed [rpm]": 1551,
+      "Torque [Nm]": 42.8,
+      "Tool wear [min]": 0,
+      "Target": 0,
+      "Failure Type": "No Failure"
+    },
+    {
+      "UDI": 2,
+      "Product ID": "L47181",
+      "Type": "L",
+      "Air temperature [K]": 298.2,
+      "Process temperature [K]": 308.7,
+      "Rotational speed [rpm]": 1408,
+      "Torque [Nm]": 46.3,
+      "Tool wear [min]": 3,
+      "Target": 0,
+      "Failure Type": "No Failure"
+    },
+    {
+      "UDI": 3,
+      "Product ID": "L47182",
+      "Type": "L",
+      "Air temperature [K]": 298.1,
+      "Process temperature [K]": 308.5,
+      "Rotational speed [rpm]": 1498,
+      "Torque [Nm]": 49.4,
+      "Tool wear [min]": 5,
+      "Target": 0,
+      "Failure Type": "No Failure"
+    },
+    {
+      "UDI": 4,
+      "Product ID": "L47183",
+      "Type": "L",
+      "Air temperature [K]": 298.2,
+      "Process temperature [K]": 308.6,
+      "Rotational speed [rpm]": 1433,
+      "Torque [Nm]": 39.5,
+      "Tool wear [min]": 7,
+      "Target": 0,
+      "Failure Type": "No Failure"
+    },
+    {
+      "UDI": 5,
+      "Product ID": "L47184",
+      "Type": "L",
+      "Air temperature [K]": 298.2,
+      "Process temperature [K]": 308.7,
+      "Rotational speed [rpm]": 1408,
+      "Torque [Nm]": 40.0,
+      "Tool wear [min]": 9,
+      "Target": 0,
+      "Failure Type": "No Failure"
+    }
+  ],
+  "stats": {
     "UDI": {
       "count": 10000.0,
       "mean": 5000.5,
@@ -110,42 +167,6 @@
       "50%": 0.0,
       "75%": 0.0,
       "max": 1.0
-    }
-  },
-  "categorical_summary": {
-    "Product ID": {
-      "unique_count": 10000,
-      "top_values": {
-        "M14860": 1,
-        "L53850": 1,
-        "L53843": 1,
-        "L53844": 1,
-        "L53845": 1,
-        "L53846": 1,
-        "H36081": 1,
-        "L53848": 1,
-        "L53849": 1,
-        "L53851": 1
-      }
-    },
-    "Type": {
-      "unique_count": 3,
-      "top_values": {
-        "L": 6000,
-        "M": 2997,
-        "H": 1003
-      }
-    },
-    "Failure Type": {
-      "unique_count": 6,
-      "top_values": {
-        "No Failure": 9652,
-        "Heat Dissipation Failure": 112,
-        "Power Failure": 95,
-        "Overstrain Failure": 78,
-        "Tool Wear Failure": 45,
-        "Random Failures": 18
-      }
     }
   }
 }

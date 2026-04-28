@@ -4,13 +4,13 @@
       "file": "machine_predictive_maintenance.csv",
       "rows": 10000,
       "columns": 10,
-      "profile": "data\\processed\\01_discovery\\machine_predictive_maintenance_profile.json"
+      "profile": "machine_predictive_maintenance_profile.json"
     },
     {
       "file": "ai4i_2020_predictive_maintenance.csv",
       "rows": 10000,
       "columns": 14,
-      "profile": "data\\processed\\01_discovery\\ai4i_2020_predictive_maintenance_profile.json"
+      "profile": "ai4i_2020_predictive_maintenance_profile.json"
     }
   ]
 }

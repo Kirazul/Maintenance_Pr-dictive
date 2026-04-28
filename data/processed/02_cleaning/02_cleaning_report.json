@@ -1,7 +1,7 @@
 {
   "rows": 10000,
   "columns": 17,
-  "target_positive_rate": 0.0339,
+  "target_positive_rate": 0.0348,
   "source_mix": {
     "merged": 10000
   },
@@ -24,5 +24,6 @@
     "source_dataset": 0,
     "machine_failure": 0,
     "product_id": 0
-  }
+  },
+  "remaining_inconsistencies": 0
 }

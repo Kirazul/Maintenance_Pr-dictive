@@ -3,136 +3,758 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Predictive Maintenance Intelligence Presentation</title>
+    <title>Predictive Maintenance - Presentation</title>
     <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    <link rel="stylesheet" href="css/style.css?v=4.1">
+    <link rel="stylesheet" href="css/style.css?v=5.0">
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            overflow: hidden;
+            background: #050913;
+        }
+
+        body.presentation-body {
+            font-family: 'Outfit', system-ui, sans-serif;
+            color: #edf2f7;
+        }
+
+        .presentation-page {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 14px;
+            padding: 18px;
+            background:
+                radial-gradient(circle at 8% 12%, rgba(56, 189, 248, .12), transparent 28%),
+                radial-gradient(circle at 88% 10%, rgba(239, 68, 68, .14), transparent 30%),
+                linear-gradient(180deg, #07111f, #050913 58%, #02040a);
+        }
+
+        .presentation-header,
+        .deck-controls,
+        .slide-card {
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: rgba(7, 12, 22, .78);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, .35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .presentation-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 14px 16px;
+            border-radius: 22px;
+        }
+
+        .deck-brand {
+            display: grid;
+            gap: 3px;
+        }
+
+        .deck-brand span,
+        .slide-kicker,
+        .story-label,
+        .metric-label {
+            color: #f87171;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .deck-brand strong {
+            font-size: 16px;
+        }
+
+        .deck-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .deck-links a,
+        .deck-controls button,
+        .preset-buttons button,
+        .run-button {
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .045);
+            color: #edf2f7;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .deck-links a {
+            padding: 10px 13px;
+            font-size: 13px;
+        }
+
+        .deck-links a:hover,
+        .deck-controls button:hover:not(:disabled),
+        .preset-buttons button:hover,
+        .run-button:hover {
+            border-color: rgba(248, 113, 113, .34);
+            background: rgba(248, 113, 113, .1);
+        }
+
+        .progress-shell {
+            flex: 1;
+            height: 5px;
+            min-width: 180px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 11.11%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #f87171, #fbbf24);
+            transition: width .25s ease;
+        }
+
+        .slide-frame {
+            min-height: 0;
+        }
+
+        .presentation-slide {
+            display: none;
+            height: 100%;
+        }
+
+        .presentation-slide.active {
+            display: block;
+        }
+
+        .slide-card {
+            height: 100%;
+            overflow: auto;
+            border-radius: 30px;
+            padding: clamp(24px, 4vw, 52px);
+        }
+
+        .slide-title {
+            max-width: 980px;
+            margin: 10px 0 14px;
+            font-size: clamp(38px, 6.4vw, 82px);
+            line-height: .92;
+            letter-spacing: -.055em;
+        }
+
+        .slide-lead {
+            max-width: 780px;
+            color: #b8c4d6;
+            font-size: clamp(17px, 1.7vw, 23px);
+            line-height: 1.55;
+        }
+
+        .slide-grid-2,
+        .slide-grid-3,
+        .metric-strip,
+        .pipeline-row,
+        .simulator-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .slide-grid-2,
+        .simulator-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            margin-top: 28px;
+        }
+
+        .slide-grid-3,
+        .metric-strip {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 28px;
+        }
+
+        .pipeline-row {
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            margin-top: 30px;
+        }
+
+        .story-card,
+        .metric-card-simple,
+        .sim-panel,
+        .leaderboard-simple,
+        .threshold-simple {
+            border: 1px solid rgba(255, 255, 255, .075);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .035);
+            padding: 20px;
+        }
+
+        .story-card strong,
+        .metric-card-simple strong {
+            display: block;
+            margin: 9px 0 7px;
+            font-size: clamp(23px, 3vw, 40px);
+            line-height: 1;
+        }
+
+        .story-card p,
+        .metric-card-simple p,
+        .sim-panel p,
+        .pipeline-row p {
+            color: #b8c4d6;
+            line-height: 1.55;
+        }
+
+        .big-proof {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .proof-number {
+            padding: 28px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, .08);
+            background: rgba(255, 255, 255, .035);
+        }
+
+        .proof-number strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: clamp(44px, 8vw, 96px);
+            line-height: .9;
+            letter-spacing: -.06em;
+        }
+
+        .proof-number.failure strong {
+            color: #f87171;
+        }
+
+        .proof-number.normal strong {
+            color: #4ade80;
+        }
+
+        .simple-row {
+            display: grid;
+            grid-template-columns: 1.1fr repeat(3, .75fr);
+            gap: 10px;
+            align-items: center;
+            padding: 13px 14px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, .035);
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .simple-row + .simple-row {
+            margin-top: 10px;
+        }
+
+        .simple-row span {
+            color: #b8c4d6;
+        }
+
+        .simple-row.header {
+            background: rgba(248, 113, 113, .09);
+            border-color: rgba(248, 113, 113, .18);
+        }
+
+        .simple-row.header span,
+        .simple-row.header strong {
+            color: #fecaca;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .threshold-simple .simple-row {
+            grid-template-columns: .7fr repeat(3, 1fr);
+        }
+
+        .sim-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .sim-form-grid label {
+            display: grid;
+            gap: 6px;
+            color: #b8c4d6;
+            font-size: 14px;
+        }
+
+        .sim-form-grid input,
+        .sim-form-grid select {
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, .11);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, .045);
+            color: #edf2f7;
+            padding: 12px 13px;
+            font: inherit;
+        }
+
+        .sim-form-grid select option {
+            background: #0f172a;
+        }
+
+        .preset-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .preset-buttons button,
+        .run-button {
+            width: auto;
+            padding: 11px 14px;
+            font-weight: 800;
+        }
+
+        .run-button {
+            width: 100%;
+            margin-top: 16px;
+            border-color: transparent;
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+
+        .deck-result {
+            display: grid;
+            gap: 14px;
+            min-height: 100%;
+        }
+
+        .deck-probability {
+            font-size: clamp(56px, 12vw, 130px);
+            line-height: .9;
+            letter-spacing: -.08em;
+            color: #4ade80;
+        }
+
+        .deck-result.warning .deck-probability {
+            color: #fbbf24;
+        }
+
+        .deck-result.critical .deck-probability {
+            color: #f87171;
+        }
+
+        .deck-action {
+            padding: 18px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, .045);
+            border: 1px solid rgba(255, 255, 255, .075);
+        }
+
+        .deck-action strong {
+            display: block;
+            margin-top: 5px;
+            font-size: 26px;
+            text-transform: capitalize;
+        }
+
+        .deck-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 12px 14px;
+            border-radius: 22px;
+        }
+
+        .deck-controls button {
+            width: auto;
+            padding: 12px 16px;
+            font-weight: 800;
+        }
+
+        .deck-controls button:disabled {
+            opacity: .35;
+            cursor: not-allowed;
+        }
+
+        .slide-count {
+            color: #b8c4d6;
+            font-size: 14px;
+        }
+
+        @media (max-width: 980px) {
+            html,
+            body {
+                overflow: auto;
+            }
+
+            .presentation-page {
+                position: static;
+                min-height: 100vh;
+            }
+
+            .presentation-header,
+            .deck-controls {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .slide-grid-2,
+            .slide-grid-3,
+            .metric-strip,
+            .pipeline-row,
+            .simulator-grid,
+            .big-proof,
+            .sim-form-grid,
+            .simple-row,
+            .threshold-simple .simple-row {
+                grid-template-columns: 1fr;
+            }
+
+            .slide-card {
+                overflow: visible;
+            }
+        }
+    </style>
 </head>
 <body class="presentation-body">
-    <div id="bg-layer"></div>
-    <div id="vignette"></div>
-    <div id="grid-overlay"></div>
-    <div id="page-wipe"></div>
+    <div class="presentation-page">
+        <header class="presentation-header">
+            <div class="deck-brand">
+                <span>Predictive Maintenance</span>
+                <strong>Clear project presentation</strong>
+            </div>
+            <nav class="deck-links" aria-label="Presentation navigation">
+                <a href="/">Dashboard</a>
+                <a href="/notebook">ML Lab</a>
+                <a href="/report">Report</a>
+            </nav>
+        </header>
 
-    <div class="top-nav">
-        <div class="nav-cluster">
-            <a href="/" class="nav-btn route-link">CONTROL ROOM</a>
-        </div>
-        <div class="nav-cluster">
-            <div class="nav-meta glass">Presentation Mode</div>
-            <a href="/notebook" class="nav-btn primary route-link">ML LAB</a>
-        </div>
+        <main class="slide-frame">
+            <section class="presentation-slide active" data-slide="1">
+                <div class="slide-card">
+                    <span class="slide-kicker">01. Project answer</span>
+                    <h1 class="slide-title">A machine check that ends with a maintenance action.</h1>
+                    <p class="slide-lead">The system takes machine sensor values, estimates failure probability, labels the risk, and tells the operator what to do next.</p>
+                    <div class="metric-strip">
+                        <div class="metric-card-simple"><span class="metric-label">Best model</span><strong id="deck-best-model">--</strong><p>Selected from the model comparison.</p></div>
+                        <div class="metric-card-simple"><span class="metric-label">Balanced accuracy</span><strong id="deck-balanced">--</strong><p>Used because failures are rare.</p></div>
+                        <div class="metric-card-simple"><span class="metric-label">Failures caught</span><strong id="deck-captured">--</strong><p>Shows how many real failures are detected.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="2">
+                <div class="slide-card">
+                    <span class="slide-kicker">02. Problem</span>
+                    <h1 class="slide-title">Failure prediction is hard because failures are rare.</h1>
+                    <p class="slide-lead">A normal accuracy score can look excellent while the model misses the events maintenance teams actually care about.</p>
+                    <div class="big-proof">
+                        <div class="proof-number normal"><strong>96.6%</strong><p>Records are normal machine behavior.</p></div>
+                        <div class="proof-number failure"><strong>3.4%</strong><p>Records are machine failures.</p></div>
+                    </div>
+                    <div class="slide-grid-3">
+                        <div class="story-card"><span class="story-label">Risk</span><strong>Accuracy trap</strong><p>Predicting “no failure” most of the time can still look accurate.</p></div>
+                        <div class="story-card"><span class="story-label">Need</span><strong>Catch failures</strong><p>The useful model must identify rare failure cases early.</p></div>
+                        <div class="story-card"><span class="story-label">Control</span><strong>Limit false alarms</strong><p>Too many alerts make the system hard to trust.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="3">
+                <div class="slide-card">
+                    <span class="slide-kicker">03. Inputs</span>
+                    <h1 class="slide-title">The model uses simple machine signals.</h1>
+                    <p class="slide-lead">The frontend keeps the inputs understandable: temperatures, speed, torque, tool wear, and product type. The backend adds engineered stress features.</p>
+                    <div class="slide-grid-3">
+                        <div class="story-card"><span class="story-label">Thermal</span><strong>Air and process temperature</strong><p>Temperature difference helps describe cooling and thermal stress.</p></div>
+                        <div class="story-card"><span class="story-label">Mechanical</span><strong>Speed and torque</strong><p>These describe load, strain, and power demand.</p></div>
+                        <div class="story-card"><span class="story-label">Usage</span><strong>Tool wear and product type</strong><p>Wear level and product class add operating context.</p></div>
+                    </div>
+                    <div class="metric-strip">
+                        <div class="metric-card-simple"><span class="metric-label">Features</span><strong id="deck-features">--</strong><p>Raw and engineered model inputs.</p></div>
+                        <div class="metric-card-simple"><span class="metric-label">Threshold</span><strong id="deck-threshold">--</strong><p>Probability cutoff used for decisions.</p></div>
+                        <div class="metric-card-simple"><span class="metric-label">Alert rate</span><strong id="deck-alert">--</strong><p>How often the system raises alerts.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="4">
+                <div class="slide-card">
+                    <span class="slide-kicker">04. User result</span>
+                    <h1 class="slide-title">The output is designed around one decision.</h1>
+                    <p class="slide-lead">The user does not need to interpret every ML metric. The dashboard shows probability, risk band, and action first.</p>
+                    <div class="slide-grid-3">
+                        <div class="story-card"><span class="story-label">Stable</span><strong>Continue monitoring</strong><p>Risk is below the alert policy. No immediate maintenance action.</p></div>
+                        <div class="story-card"><span class="story-label">Warning</span><strong>Schedule inspection</strong><p>The machine is moving into a risk zone and needs planned attention.</p></div>
+                        <div class="story-card"><span class="story-label">Critical</span><strong>Inspect immediately</strong><p>Failure probability is high enough to require urgent action.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="5">
+                <div class="slide-card">
+                    <span class="slide-kicker">05. Model evidence</span>
+                    <h1 class="slide-title">Gradient boosting gives the best operational balance.</h1>
+                    <p class="slide-lead">The comparison focuses on balanced accuracy, precision, and recall instead of raw accuracy.</p>
+                    <div id="deck-leaderboard" class="leaderboard-simple"></div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="6">
+                <div class="slide-card">
+                    <span class="slide-kicker">06. Threshold policy</span>
+                    <h1 class="slide-title">The threshold controls the tradeoff.</h1>
+                    <p class="slide-lead">A lower threshold catches more failures but creates more alerts. A higher threshold reduces alerts but can miss failures.</p>
+                    <div id="deck-thresholds" class="threshold-simple"></div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="7">
+                <div class="slide-card">
+                    <span class="slide-kicker">07. Live simulator</span>
+                    <h1 class="slide-title">Try a machine state and see the decision.</h1>
+                    <div class="simulator-grid">
+                        <div class="sim-panel">
+                            <span class="story-label">Inputs</span>
+                            <p>Use presets for a fast demo or edit the values manually.</p>
+                            <div class="preset-buttons">
+                                <button type="button" data-deck-preset="stable">Stable</button>
+                                <button type="button" data-deck-preset="warning">Warning</button>
+                                <button type="button" data-deck-preset="critical">Critical</button>
+                            </div>
+                            <div class="sim-form-grid">
+                                <label>Air temp K<input id="deck-air" type="number" step="0.1" value="298.1"></label>
+                                <label>Process temp K<input id="deck-process" type="number" step="0.1" value="308.6"></label>
+                                <label>Speed RPM<input id="deck-speed" type="number" step="1" value="1551"></label>
+                                <label>Torque Nm<input id="deck-torque" type="number" step="0.1" value="42.8"></label>
+                                <label>Tool wear min<input id="deck-wear" type="number" step="1" value="0"></label>
+                                <label>Product type
+                                    <select id="deck-product">
+                                        <option value="L">L</option>
+                                        <option value="M" selected>M</option>
+                                        <option value="H">H</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <button type="button" id="deck-run" class="run-button">Run prediction</button>
+                        </div>
+                        <div class="sim-panel deck-result" id="deck-result-card">
+                            <span class="story-label">Result</span>
+                            <strong id="deck-probability" class="deck-probability">--</strong>
+                            <div class="deck-action">
+                                <span class="metric-label">Recommended action</span>
+                                <strong id="deck-action">Run a prediction</strong>
+                                <p id="deck-result-note">The presentation result mirrors the main dashboard behavior.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="8">
+                <div class="slide-card">
+                    <span class="slide-kicker">08. System</span>
+                    <h1 class="slide-title">The project is an end-to-end ML application.</h1>
+                    <p class="slide-lead">The pipeline prepares data, trains and evaluates models, exports artifacts, and serves predictions through FastAPI.</p>
+                    <div class="pipeline-row">
+                        <div class="story-card"><span class="story-label">1</span><strong>Data</strong><p>Load and clean machine records.</p></div>
+                        <div class="story-card"><span class="story-label">2</span><strong>Features</strong><p>Create stress and wear indicators.</p></div>
+                        <div class="story-card"><span class="story-label">3</span><strong>Model</strong><p>Train and compare classifiers.</p></div>
+                        <div class="story-card"><span class="story-label">4</span><strong>API</strong><p>Serve calibrated predictions.</p></div>
+                        <div class="story-card"><span class="story-label">5</span><strong>Frontend</strong><p>Show clear decisions to users.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="presentation-slide" data-slide="9">
+                <div class="slide-card">
+                    <span class="slide-kicker">09. Takeaway</span>
+                    <h1 class="slide-title">The value is not only the model. It is the decision flow.</h1>
+                    <p class="slide-lead">The final frontend now makes the result visible, removes presentation noise, and explains the project in the order a viewer expects: problem, inputs, model, threshold, action.</p>
+                    <div class="slide-grid-3">
+                        <div class="story-card"><span class="story-label">Built</span><strong>Prediction API</strong><p>Reusable endpoint for machine-failure risk.</p></div>
+                        <div class="story-card"><span class="story-label">Shown</span><strong>Readable dashboard</strong><p>Clear inputs, visible result, and compact evidence.</p></div>
+                        <div class="story-card"><span class="story-label">Next</span><strong>More real failures</strong><p>Improve calibration with more production failure examples.</p></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="deck-controls">
+            <div class="progress-shell" aria-hidden="true"><div id="deck-progress" class="progress-fill"></div></div>
+            <div class="slide-count">Slide <span id="current-slide">1</span> of <span id="total-slides">9</span></div>
+            <div class="deck-links">
+                <button type="button" id="prev-btn">Previous</button>
+                <button type="button" id="next-btn">Next</button>
+                <button type="button" id="fullscreen-btn">Full screen</button>
+            </div>
+        </footer>
     </div>
 
-    <main class="presentation-shell">
-        <section class="presentation-stage glass" id="presentation-stage">
-            <div class="presentation-topline">
-                <span class="presentation-badge">Presentation Mode</span>
-                <span class="presentation-badge">Maintenance Intelligence Deck</span>
-            </div>
-
-            <div class="presentation-slide-grid">
-                <section class="presentation-hero-card glass">
-                    <span class="tag">Slide 01</span>
-                    <h1>Predictive Maintenance <span>Intelligence</span></h1>
-                    <p>A production-ready maintenance product with calibrated risk scoring, threshold-aware intervention policy, and an interactive ML lab for full workflow traceability.</p>
-                </section>
-
-                <section class="presentation-metric-card glass">
-                    <span class="tag">Operational Score</span>
-                    <strong id="deck-operational-score">--</strong>
-                    <p>Balanced accuracy at the selected decision threshold.</p>
-                </section>
-
-                <section class="presentation-metric-card glass">
-                    <span class="tag">Failure Capture</span>
-                    <strong id="deck-capture-rate">--</strong>
-                    <p>Share of failures detected by the live policy.</p>
-                </section>
-
-                <section class="presentation-metric-card glass">
-                    <span class="tag">Alert Rate</span>
-                    <strong id="deck-alert-rate">--</strong>
-                    <p>Operational burden created by the current threshold.</p>
-                </section>
-
-                <section class="presentation-panel glass span-2">
-                    <span class="tag">System Story</span>
-                    <h2>What Changed</h2>
-                    <div class="presentation-list" id="deck-story-list"></div>
-                </section>
-
-                <section class="presentation-panel glass span-2">
-                    <span class="tag">Model Board</span>
-                    <h2>Current Leaderboard</h2>
-                    <div id="deck-leaderboard" class="leaderboard"></div>
-                </section>
-
-                <section class="presentation-panel glass span-4">
-                    <span class="tag">Threshold Sweep</span>
-                    <h2>Operating Policy</h2>
-                    <div id="deck-thresholds" class="leaderboard"></div>
-                </section>
-            </div>
-        </section>
-    </main>
-
     <script>
-        async function loadDeck() {
-            const summary = await fetch('/model_summary').then((r) => r.json());
-            const dashboard = await fetch('/dashboard').then((r) => r.json());
+        const slides = Array.from(document.querySelectorAll('.presentation-slide'));
+        const totalSlides = slides.length;
+        let currentSlide = 1;
 
-            document.getElementById('deck-operational-score').textContent = Number(summary.operational_score).toFixed(4);
-            document.getElementById('deck-capture-rate').textContent = `${(Number(summary.captured_failures) * 100).toFixed(1)}%`;
-            document.getElementById('deck-alert-rate').textContent = `${(Number(summary.alert_rate) * 100).toFixed(1)}%`;
+        document.getElementById('total-slides').textContent = totalSlides;
 
-            const story = [
-                'Merged duplicated raw sources into one canonical machine dataset.',
-                'Removed leakage paths from training and split design.',
-                'Selected operating threshold on validation instead of relying on 0.5 by default.',
-                'Exposed the workflow through a control room, presentation mode, and executable ML lab.',
-            ];
-            const storyList = document.getElementById('deck-story-list');
-            story.forEach((item) => {
-                const row = document.createElement('div');
-                row.className = 'mini-row';
-                row.innerHTML = `<span>Insight</span><strong>${item}</strong>`;
-                storyList.appendChild(row);
-            });
+        function formatPercent(value, digits = 1) {
+            const number = Number(value);
+            return Number.isFinite(number) ? `${(number * 100).toFixed(digits)}%` : '--';
+        }
 
-            const leaderboard = document.getElementById('deck-leaderboard');
-            dashboard.leaderboard.slice(0, 4).forEach((row) => {
-                const node = document.createElement('div');
-                node.className = 'leaderboard-row';
-                node.innerHTML = `
-                    <div><span class="label">Model</span><span class="value">${row.model_name}</span></div>
-                    <div><span class="label">Val Balanced</span><span class="value">${Number(row.validation_balanced_accuracy).toFixed(4)}</span></div>
-                    <div><span class="label">Test F1</span><span class="value">${Number(row.test_f1).toFixed(4)}</span></div>
-                    <div><span class="label">Test AUC</span><span class="value">${Number(row.test_roc_auc).toFixed(4)}</span></div>`;
-                leaderboard.appendChild(node);
-            });
+        function formatDecimal(value, digits = 2) {
+            const number = Number(value);
+            return Number.isFinite(number) ? number.toFixed(digits) : '--';
+        }
 
-            const thresholds = document.getElementById('deck-thresholds');
-            dashboard.evaluation.threshold_curve.slice(0, 6).forEach((row) => {
-                const node = document.createElement('div');
-                node.className = 'leaderboard-row';
-                node.innerHTML = `
-                    <div><span class="label">Threshold</span><span class="value">${row.threshold}</span></div>
-                    <div><span class="label">Balanced Accuracy</span><span class="value">${Number(row.balanced_accuracy).toFixed(3)}</span></div>
-                    <div><span class="label">Precision</span><span class="value">${Number(row.precision).toFixed(3)}</span></div>
-                    <div><span class="label">Recall</span><span class="value">${Number(row.recall).toFixed(3)}</span></div>`;
-                thresholds.appendChild(node);
+        function setText(id, value) {
+            const node = document.getElementById(id);
+            if (node) node.textContent = value;
+        }
+
+        function showSlide(index) {
+            currentSlide = Math.max(1, Math.min(totalSlides, index));
+            slides.forEach((slide) => slide.classList.toggle('active', Number(slide.dataset.slide) === currentSlide));
+            setText('current-slide', currentSlide);
+            document.getElementById('deck-progress').style.width = `${(currentSlide / totalSlides) * 100}%`;
+            document.getElementById('prev-btn').disabled = currentSlide === 1;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+        }
+
+        async function fetchJson(url, options) {
+            const response = await fetch(url, options);
+            const payload = await response.json();
+            if (!response.ok) throw new Error(payload.detail || `Request failed: ${url}`);
+            return payload;
+        }
+
+        function renderSimpleRows(containerId, rows, type) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
+
+            const header = document.createElement('div');
+            header.className = 'simple-row header';
+            header.innerHTML = type === 'threshold'
+                ? '<strong>Threshold</strong><span>Recall</span><span>Precision</span><span>Alert rate</span>'
+                : '<strong>Model</strong><span>Balanced acc</span><span>Precision</span><span>Recall</span>';
+            container.appendChild(header);
+
+            rows.forEach((row) => {
+                const div = document.createElement('div');
+                div.className = 'simple-row';
+                if (type === 'threshold') {
+                    div.innerHTML = `<strong>${formatDecimal(row.threshold, 2)}</strong><span>${formatPercent(row.recall, 0)} recall</span><span>${formatPercent(row.precision, 0)} precision</span><span>${formatPercent(row.alert_rate, 1)} alerts</span>`;
+                } else {
+                    div.innerHTML = `<strong>${row.model_name}</strong><span>${formatPercent(row.test_balanced_accuracy)}</span><span>${formatPercent(row.test_precision)}</span><span>${formatPercent(row.test_recall)}</span>`;
+                }
+                container.appendChild(div);
             });
         }
-        document.querySelectorAll('.route-link').forEach((link) => {
-            link.addEventListener('click', (event) => {
-                event.preventDefault();
-                const wipe = document.getElementById('page-wipe');
-                if (wipe) wipe.classList.add('active');
-                document.body.classList.add('page-exit');
-                setTimeout(() => { window.location.href = link.href; }, 360);
+
+        async function loadDeckData() {
+            try {
+                const [summary, dashboard] = await Promise.all([fetchJson('/model_summary'), fetchJson('/dashboard')]);
+                const ops = dashboard.evaluation.operations_metrics;
+
+                setText('deck-best-model', summary.best_model || dashboard.model.name);
+                setText('deck-balanced', formatPercent(summary.test_balanced_accuracy || summary.operational_score || dashboard.model.metrics.balanced_accuracy));
+                setText('deck-captured', formatPercent(ops.captured_failures));
+                setText('deck-features', dashboard.model.feature_count);
+                setText('deck-threshold', formatDecimal(summary.recommended_threshold || ops.recommended_threshold, 2));
+                setText('deck-alert', formatPercent(ops.alert_rate));
+
+                renderSimpleRows('deck-leaderboard', dashboard.leaderboard.slice(0, 5), 'leaderboard');
+                renderSimpleRows('deck-thresholds', dashboard.evaluation.threshold_curve.slice(0, 7), 'threshold');
+            } catch (error) {
+                console.warn(error);
+            }
+        }
+
+        function deckPayload() {
+            return {
+                air_temp_k: Number(document.getElementById('deck-air').value),
+                process_temp_k: Number(document.getElementById('deck-process').value),
+                rotational_speed: Number(document.getElementById('deck-speed').value),
+                torque: Number(document.getElementById('deck-torque').value),
+                tool_wear: Number(document.getElementById('deck-wear').value),
+                product_type: document.getElementById('deck-product').value,
+            };
+        }
+
+        function setDeckPreset(name) {
+            const presets = {
+                stable: [298.1, 308.6, 1551, 42.8, 0, 'M'],
+                warning: [301, 312, 1375, 58, 165, 'L'],
+                critical: [300, 312, 1290, 66, 215, 'H'],
+            };
+            const values = presets[name] || presets.stable;
+            ['deck-air', 'deck-process', 'deck-speed', 'deck-torque', 'deck-wear', 'deck-product'].forEach((id, index) => {
+                document.getElementById(id).value = values[index];
+            });
+        }
+
+        async function runDeckPrediction() {
+            const button = document.getElementById('deck-run');
+            const card = document.getElementById('deck-result-card');
+            button.disabled = true;
+            button.textContent = 'Running...';
+            setText('deck-action', 'Checking machine');
+            setText('deck-result-note', 'Waiting for the API response.');
+
+            try {
+                const result = await fetchJson('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(deckPayload()),
+                });
+                const risk = String(result.risk_band || 'stable').toLowerCase();
+                card.classList.remove('warning', 'critical');
+                if (risk === 'warning') card.classList.add('warning');
+                if (risk === 'critical') card.classList.add('critical');
+                setText('deck-probability', formatPercent(result.failure_probability));
+                setText('deck-action', result.recommended_action || 'continue monitoring');
+                setText('deck-result-note', `Risk band: ${risk}. Threshold: ${formatDecimal(result.threshold, 2)}.`);
+            } catch (error) {
+                card.classList.add('critical');
+                setText('deck-probability', 'Error');
+                setText('deck-action', 'Prediction failed');
+                setText('deck-result-note', error.message);
+            } finally {
+                button.disabled = false;
+                button.textContent = 'Run prediction';
+            }
+        }
+
+        document.getElementById('prev-btn').addEventListener('click', () => showSlide(currentSlide - 1));
+        document.getElementById('next-btn').addEventListener('click', () => showSlide(currentSlide + 1));
+        document.getElementById('fullscreen-btn').addEventListener('click', () => {
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            } else {
+                document.documentElement.requestFullscreen().catch(console.warn);
+            }
+        });
+        document.getElementById('deck-run').addEventListener('click', runDeckPrediction);
+        document.querySelectorAll('[data-deck-preset]').forEach((button) => {
+            button.addEventListener('click', () => {
+                setDeckPreset(button.dataset.deckPreset);
+                runDeckPrediction();
             });
         });
-        loadDeck();
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowRight') showSlide(currentSlide + 1);
+            if (event.key === 'ArrowLeft') showSlide(currentSlide - 1);
+        });
+
+        showSlide(1);
+        loadDeckData();
+        runDeckPrediction();
     </script>
 </body>
 </html>

@@ -64,7 +64,11 @@ def main() -> None:
         "feature_count": training_report["feature_count"],
         "alert_rate": evaluation_report["operations_metrics"]["alert_rate"],
         "captured_failures": evaluation_report["operations_metrics"]["captured_failures"],
-        "recommended_threshold": evaluation_report["operations_metrics"]["recommended_threshold"],
+        "test_balanced_accuracy": training_report["metrics"].get("balanced_accuracy"),
+        "test_precision": training_report["metrics"].get("precision"),
+        "test_recall": training_report["metrics"].get("recall"),
+        "threshold": training_report["threshold"],
+        "recommended_threshold": training_report["threshold"],
     }
     with open(FRONTEND_DIR / "model_summary.json", "w", encoding="utf-8") as handle:
         json.dump(model_summary, handle, indent=2)
