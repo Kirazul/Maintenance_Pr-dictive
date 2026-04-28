@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+
+# Deployment archive exclusions for Railway CLI upload.
+rapport/tectonic.exe
+rapport/main.pdf
+rapport/main.tex
+rapport/Technical_Report_Predictive_Maintenance_Final.pdf
+rapport/Technical_Report_Predictive_Maintenance_Final_v2.pdf
+artifacts/models/*
+!artifacts/models/GradientBoosting.joblib
+tools/
+scripts/

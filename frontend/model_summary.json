@@ -1,0 +1,17 @@
+{
+  "title": "Predictive Maintenance Intelligence",
+  "best_model": "GradientBoosting",
+  "operational_score": 0.8905255366395263,
+  "test_accuracy": 0.988,
+  "test_roc_auc": 0.9905181347150258,
+  "test_f1": 0.8208955223880597,
+  "test_average_precision": 0.9127802090831926,
+  "feature_count": 16,
+  "alert_rate": 0.032,
+  "captured_failures": 0.7857142857142857,
+  "test_balanced_accuracy": 0.8905255366395263,
+  "test_precision": 0.859375,
+  "test_recall": 0.7857142857142857,
+  "threshold": 0.25,
+  "recommended_threshold": 0.25
+}

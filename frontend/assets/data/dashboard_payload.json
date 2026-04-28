@@ -1,0 +1,371 @@
+{
+  "hero": {
+    "title": "Predictive Maintenance Intelligence",
+    "subtitle": "Live maintenance risk monitoring, alert quality, and model diagnostics in one cinematic control room."
+  },
+  "model": {
+    "name": "GradientBoosting",
+    "metrics": {
+      "accuracy": 0.988,
+      "balanced_accuracy": 0.8905255366395263,
+      "precision": 0.859375,
+      "recall": 0.7857142857142857,
+      "f1": 0.8208955223880597,
+      "roc_auc": 0.9905181347150258,
+      "average_precision": 0.9127802090831926
+    },
+    "feature_count": 16,
+    "numeric_features": [
+      "air_temp_k",
+      "process_temp_k",
+      "rotational_speed_rpm",
+      "torque_nm",
+      "tool_wear_min",
+      "temp_delta_k",
+      "power_proxy",
+      "wear_power_ratio",
+      "torque_speed_ratio",
+      "thermal_load",
+      "wear_temp_stress",
+      "high_torque_flag",
+      "low_speed_flag"
+    ],
+    "categorical_features": [
+      "product_type",
+      "source_dataset",
+      "wear_risk_band"
+    ]
+  },
+  "evaluation": {
+    "model_name": "GradientBoosting",
+    "classification_metrics": {
+      "accuracy": 0.988,
+      "balanced_accuracy": 0.8905255366395263,
+      "precision": 0.859375,
+      "recall": 0.7857142857142857,
+      "f1": 0.8208955223880597,
+      "roc_auc": 0.9905181347150258,
+      "average_precision": 0.9127802090831926
+    },
+    "confusion_matrix": {
+      "tn": 1921,
+      "fp": 9,
+      "fn": 15,
+      "tp": 55
+    },
+    "operations_metrics": {
+      "alert_rate": 0.032,
+      "failure_prevalence": 0.035,
+      "captured_failures": 0.7857142857142857,
+      "false_alarm_share": 0.140625,
+      "operational_score": 0.8905255366395263,
+      "recommended_threshold": 0.25,
+      "best_balanced_threshold": 0.1
+    },
+    "threshold_curve": [
+      {
+        "threshold": 0.1,
+        "balanced_accuracy": 0.9437823834196891,
+        "precision": 0.7241379310344828,
+        "recall": 0.9,
+        "f1": 0.802547770700637,
+        "alert_rate": 0.0435
+      },
+      {
+        "threshold": 0.15,
+        "balanced_accuracy": 0.910658771280533,
+        "precision": 0.8055555555555556,
+        "recall": 0.8285714285714286,
+        "f1": 0.8169014084507042,
+        "alert_rate": 0.036
+      },
+      {
+        "threshold": 0.2,
+        "balanced_accuracy": 0.9045521835677276,
+        "precision": 0.8507462686567164,
+        "recall": 0.8142857142857143,
+        "f1": 0.8321167883211679,
+        "alert_rate": 0.0335
+      },
+      {
+        "threshold": 0.25,
+        "balanced_accuracy": 0.8905255366395263,
+        "precision": 0.859375,
+        "recall": 0.7857142857142857,
+        "f1": 0.8208955223880597,
+        "alert_rate": 0.032
+      },
+      {
+        "threshold": 0.3,
+        "balanced_accuracy": 0.8910436713545522,
+        "precision": 0.8870967741935484,
+        "recall": 0.7857142857142857,
+        "f1": 0.8333333333333334,
+        "alert_rate": 0.031
+      },
+      {
+        "threshold": 0.35,
+        "balanced_accuracy": 0.8913027387120651,
+        "precision": 0.9016393442622951,
+        "recall": 0.7857142857142857,
+        "f1": 0.8396946564885496,
+        "alert_rate": 0.0305
+      },
+      {
+        "threshold": 0.4,
+        "balanced_accuracy": 0.891820873427091,
+        "precision": 0.9322033898305084,
+        "recall": 0.7857142857142857,
+        "f1": 0.8527131782945736,
+        "alert_rate": 0.0295
+      },
+      {
+        "threshold": 0.45,
+        "balanced_accuracy": 0.8851961509992599,
+        "precision": 0.9642857142857143,
+        "recall": 0.7714285714285715,
+        "f1": 0.8571428571428571,
+        "alert_rate": 0.028
+      },
+      {
+        "threshold": 0.5,
+        "balanced_accuracy": 0.8851961509992599,
+        "precision": 0.9642857142857143,
+        "recall": 0.7714285714285715,
+        "f1": 0.8571428571428571,
+        "alert_rate": 0.028
+      },
+      {
+        "threshold": 0.55,
+        "balanced_accuracy": 0.8780532938564026,
+        "precision": 0.9636363636363636,
+        "recall": 0.7571428571428571,
+        "f1": 0.848,
+        "alert_rate": 0.0275
+      },
+      {
+        "threshold": 0.6,
+        "balanced_accuracy": 0.8566247224278312,
+        "precision": 0.9615384615384616,
+        "recall": 0.7142857142857143,
+        "f1": 0.819672131147541,
+        "alert_rate": 0.026
+      },
+      {
+        "threshold": 0.65,
+        "balanced_accuracy": 0.8354552183567727,
+        "precision": 0.9791666666666666,
+        "recall": 0.6714285714285714,
+        "f1": 0.7966101694915254,
+        "alert_rate": 0.024
+      },
+      {
+        "threshold": 0.7,
+        "balanced_accuracy": 0.8211695040710585,
+        "precision": 0.9782608695652174,
+        "recall": 0.6428571428571429,
+        "f1": 0.7758620689655172,
+        "alert_rate": 0.023
+      },
+      {
+        "threshold": 0.75,
+        "balanced_accuracy": 0.8211695040710585,
+        "precision": 0.9782608695652174,
+        "recall": 0.6428571428571429,
+        "f1": 0.7758620689655172,
+        "alert_rate": 0.023
+      },
+      {
+        "threshold": 0.8,
+        "balanced_accuracy": 0.8211695040710585,
+        "precision": 0.9782608695652174,
+        "recall": 0.6428571428571429,
+        "f1": 0.7758620689655172,
+        "alert_rate": 0.023
+      },
+      {
+        "threshold": 0.85,
+        "balanced_accuracy": 0.8211695040710585,
+        "precision": 0.9782608695652174,
+        "recall": 0.6428571428571429,
+        "f1": 0.7758620689655172,
+        "alert_rate": 0.023
+      },
+      {
+        "threshold": 0.9,
+        "balanced_accuracy": 0.8071428571428572,
+        "precision": 1.0,
+        "recall": 0.6142857142857143,
+        "f1": 0.7610619469026548,
+        "alert_rate": 0.0215
+      }
+    ]
+  },
+  "leaderboard": [
+    {
+      "model_name": "GradientBoosting",
+      "threshold": 0.25,
+      "validation_accuracy": 0.986,
+      "validation_balanced_accuracy": 0.8949256599043823,
+      "validation_precision": 0.7971014492753623,
+      "validation_recall": 0.7971014492753623,
+      "validation_f1": 0.7971014492753623,
+      "validation_roc_auc": 0.9378034959734012,
+      "validation_average_precision": 0.8328373324636978,
+      "test_accuracy": 0.987,
+      "test_balanced_accuracy": 0.9037749814951888,
+      "test_precision": 0.8142857142857143,
+      "test_recall": 0.8142857142857143,
+      "test_f1": 0.8142857142857143,
+      "test_roc_auc": 0.9891672834937084,
+      "test_average_precision": 0.9053090429918372
+    },
+    {
+      "model_name": "RandomForest",
+      "threshold": 0.4,
+      "validation_accuracy": 0.989,
+      "validation_balanced_accuracy": 0.882504371843079,
+      "validation_precision": 0.8983050847457628,
+      "validation_recall": 0.7681159420289855,
+      "validation_f1": 0.828125,
+      "validation_roc_auc": 0.9386591013141798,
+      "validation_average_precision": 0.8140351115895783,
+      "test_accuracy": 0.989,
+      "test_balanced_accuracy": 0.884159881569208,
+      "test_precision": 0.9,
+      "test_recall": 0.7714285714285715,
+      "test_f1": 0.8307692307692308,
+      "test_roc_auc": 0.9892450037009622,
+      "test_average_precision": 0.8841943998711201
+    },
+    {
+      "model_name": "ExtraTrees",
+      "threshold": 0.35,
+      "validation_accuracy": 0.981,
+      "validation_balanced_accuracy": 0.843424222637516,
+      "validation_precision": 0.7384615384615385,
+      "validation_recall": 0.6956521739130435,
+      "validation_f1": 0.7164179104477612,
+      "validation_roc_auc": 0.9246992247014764,
+      "validation_average_precision": 0.7546500091163136,
+      "test_accuracy": 0.9835,
+      "test_balanced_accuracy": 0.8468911917098445,
+      "test_precision": 0.8032786885245902,
+      "test_recall": 0.7,
+      "test_f1": 0.7480916030534351,
+      "test_roc_auc": 0.984959289415248,
+      "test_average_precision": 0.7917491488208246
+    },
+    {
+      "model_name": "DeepLearning_TF",
+      "threshold": 0.3,
+      "validation_accuracy": 0.9805,
+      "validation_balanced_accuracy": 0.8222029585932047,
+      "validation_precision": 0.75,
+      "validation_recall": 0.6521739130434783,
+      "validation_f1": 0.6976744186046512,
+      "validation_roc_auc": 0.9290447991954308,
+      "validation_average_precision": 0.7124994776320863,
+      "test_accuracy": 0.979,
+      "test_balanced_accuracy": 0.8032568467801628,
+      "test_precision": 0.7413793103448276,
+      "test_recall": 0.6142857142857143,
+      "test_f1": 0.671875,
+      "test_roc_auc": 0.9800518134715026,
+      "test_average_precision": 0.6961555354816612
+    },
+    {
+      "model_name": "NeuralNetwork_MLP",
+      "threshold": 0.85,
+      "validation_accuracy": 0.9815,
+      "validation_balanced_accuracy": 0.8087459377509588,
+      "validation_precision": 0.7962962962962963,
+      "validation_recall": 0.6231884057971014,
+      "validation_f1": 0.6991869918699187,
+      "validation_roc_auc": 0.917839371355234,
+      "validation_average_precision": 0.722017046007614,
+      "test_accuracy": 0.9805,
+      "test_balanced_accuracy": 0.7971502590673575,
+      "test_precision": 0.7924528301886793,
+      "test_recall": 0.6,
+      "test_f1": 0.6829268292682927,
+      "test_roc_auc": 0.9802960769800148,
+      "test_average_precision": 0.7424232311222508
+    },
+    {
+      "model_name": "LogisticRegression",
+      "threshold": 0.9,
+      "validation_accuracy": 0.958,
+      "validation_balanced_accuracy": 0.782601190342167,
+      "validation_precision": 0.422680412371134,
+      "validation_recall": 0.5942028985507246,
+      "validation_f1": 0.4939759036144578,
+      "validation_roc_auc": 0.9112121826192032,
+      "validation_average_precision": 0.5256176461633093,
+      "test_accuracy": 0.9635,
+      "test_balanced_accuracy": 0.8089933382679497,
+      "test_precision": 0.4838709677419355,
+      "test_recall": 0.6428571428571429,
+      "test_f1": 0.5521472392638037,
+      "test_roc_auc": 0.965440414507772,
+      "test_average_precision": 0.6547604234575607
+    }
+  ],
+  "workflow": {
+    "stages": [
+      {
+        "id": "01",
+        "name": "Dataset Discovery",
+        "path": "pipeline/01_dataset_discovery.py"
+      },
+      {
+        "id": "02",
+        "name": "Dataset Cleaning",
+        "path": "pipeline/02_dataset_cleaning.py"
+      },
+      {
+        "id": "03",
+        "name": "Training Dataset Preparation",
+        "path": "pipeline/03_training_dataset_preparation.py"
+      },
+      {
+        "id": "04",
+        "name": "Feature Engineering",
+        "path": "pipeline/04_feature_engineering.py"
+      },
+      {
+        "id": "05",
+        "name": "Model Training",
+        "path": "pipeline/05_model_training.py"
+      },
+      {
+        "id": "06",
+        "name": "Model Evaluation",
+        "path": "pipeline/06_model_evaluation.py"
+      },
+      {
+        "id": "07",
+        "name": "Frontend Exports",
+        "path": "pipeline/07_frontend_exports.py"
+      }
+    ],
+    "snippets": [
+      {
+        "path": "pipeline/02_dataset_cleaning.py",
+        "content": "from __future__ import annotations\n\nimport pandas as pd\nfrom workflow import canonicalize_frames, clean_dataset, load_raw_frames, write_json\nfrom paths import ensure_runtime_dirs, stage_dir\n\n\ndef fix_inconsistent_labels(df: pd.DataFrame) -> pd.DataFrame:\n    \"\"\"\n    Fix known labeling inconsistencies in the dataset.\n    \n    Issues identified:\n    1. \"Random Failures\" with machine_failure=0\n    2. \"No Failure\" with machine_failure=1\n    3. Mismatches between failure_type and individual flags\n    \"\"\"\n    df = df.copy()\n    \n    # Issue 1: Random Failures should have machine_failure=1\n    random_failures = (df['failure_type'] == 'Random Failures') & (df['machine_failure'] == 0)\n    if random_failures.sum() > 0:\n        print(f\"  Fixing {random_failures.sum()} 'Random Failures' with machine_failure=0\")\n        df.loc[random_failures, 'machine_failure'] = 1\n    \n    # Issue 2: Investigate \"No Failure\" with machine_failure=1\n    no_failure_but_failure = (df['failure_type'] == 'No Failure') & (df['machine_failure'] == 1)\n    if no_failure_but_failure.sum() > 0:\n        print(f\"  Investigating {no_failure_but_failure.sum()} records with 'No Failure' but machine_failure=1\")\n        # These might be data entry errors - set to machine_failure=0\n        # Alternatively, could infer failure type from flags\n        df.loc[no_failure_but_failure, 'machine_failure'] = 0\n        print(f\"    Set machine_failure=0 for these records\")\n    \n    # Issue 3: Ensure consistency between failure_type and failure_family\n    df['failure_family'] = df['failure_type'].fillna('No Failure')\n    \n    # Verify flag consistency for specific failure types\n    flag_mapping = {\n        'Tool Wear Failure': 'twf',\n        'Heat Dissipation Failure': 'hdf',\n        'Power Failure': 'pwf',\n        'Overstrain Failure': 'osf',\n        'Random Failures': 'rnf'\n    }\n    \n    # For records with specific failure types, ensure corresponding flag is set\n    for failure_type, flag_col in flag_mapping.items():\n        mask = df['failure_type'] == failure_type\n        if mask.sum() > 0:\n            missing_flags = mask & (df[flag_col] == 0)\n            if missing_flags.sum() > 0:\n                print(f\"  Setting {flag_col}=1 for {missing_flags.sum()} '{failure_type}' records\")\n                df.loc[missing_flags, flag_col] = 1\n    \n    return df\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    output_dir = stage_dir(\"02_cleaning\")"
+      },
+      {
+        "path": "pipeline/04_feature_engineering.py",
+        "content": "from __future__ import annotations\n\nimport pandas as pd\n\nfrom paths import ensure_runtime_dirs, stage_dir\nfrom workflow import engineer_features, feature_columns, write_json\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    input_dir = stage_dir(\"03_training_dataset\")\n    output_dir = stage_dir(\"04_feature_engineering\")\n\n    datasets = {\n        \"train\": pd.read_csv(input_dir / \"train_data.csv\"),\n        \"validation\": pd.read_csv(input_dir / \"validation_data.csv\"),\n        \"test\": pd.read_csv(input_dir / \"test_data.csv\"),\n    }\n    engineered = {name: engineer_features(frame) for name, frame in datasets.items()}\n\n    for name, frame in engineered.items():\n        frame.to_csv(output_dir / f\"{name}_features.csv\", index=False)\n\n    numeric, categorical = feature_columns(engineered[\"train\"])\n    feature_snapshot = {\n        \"training_rows\": int(engineered[\"train\"].shape[0]),\n        \"numeric_feature_count\": len(numeric),\n        \"categorical_feature_count\": len(categorical),\n        \"numeric_features\": numeric,\n        \"categorical_features\": categorical,\n        \"positive_rate\": float(engineered[\"train\"][\"machine_failure\"].mean()),\n    }\n    write_json(output_dir / \"04_feature_engineering_report.json\", feature_snapshot)\n\n\nif __name__ == \"__main__\":\n    main()"
+      },
+      {
+        "path": "pipeline/05_model_training.py",
+        "content": "from __future__ import annotations\n\nimport pandas as pd\n\nfrom paths import ensure_runtime_dirs, stage_dir\nfrom workflow import train_model_suite, write_json\n\n\ndef main() -> None:\n    ensure_runtime_dirs()\n    data_dir = stage_dir(\"04_feature_engineering\")\n    output_dir = stage_dir(\"05_model_training\")\n\n    train_df = pd.read_csv(data_dir / \"train_features.csv\")\n    validation_df = pd.read_csv(data_dir / \"validation_features.csv\")\n    test_df = pd.read_csv(data_dir / \"test_features.csv\")\n\n    results, artifact = train_model_suite(train_df, validation_df, test_df)\n    leaderboard = pd.DataFrame(\n        [\n            {\n                \"model_name\": result.name,\n                \"threshold\": result.threshold,\n                \"validation_accuracy\": result.validation_metrics[\"accuracy\"],\n                \"validation_balanced_accuracy\": result.validation_metrics[\"balanced_accuracy\"],\n                \"validation_precision\": result.validation_metrics[\"precision\"],\n                \"validation_recall\": result.validation_metrics[\"recall\"],\n                \"validation_f1\": result.validation_metrics[\"f1\"],\n                \"validation_roc_auc\": result.validation_metrics[\"roc_auc\"],\n                \"validation_average_precision\": result.validation_metrics[\"average_precision\"],\n                \"test_accuracy\": result.test_metrics[\"accuracy\"],\n                \"test_balanced_accuracy\": result.test_metrics[\"balanced_accuracy\"],\n                \"test_precision\": result.test_metrics[\"precision\"],\n                \"test_recall\": result.test_metrics[\"recall\"],\n                \"test_f1\": result.test_metrics[\"f1\"],\n                \"test_roc_auc\": result.test_metrics[\"roc_auc\"],\n                \"test_average_precision\": result.test_metrics[\"average_precision\"],\n            }\n            for result in results\n        ]\n    )\n    leaderboard.to_csv(output_dir / \"05_leaderboard.csv\", index=False)\n\n    report = {\n        \"best_model\": artifact[\"model_name\"],\n        \"metrics\": artifact[\"test_metrics\"],\n        \"feature_count\": len(artifact[\"numeric_features\"]) + len(artifact[\"categorical_features\"]),\n        \"numeric_features\": artifact[\"numeric_features\"],\n        \"categorical_features\": artifact[\"categorical_features\"],\n        \"threshold\": artifact[\"threshold\"],\n        \"headline_metric\": \"balanced_accuracy\",\n        \"leaderboard_preview\": leaderboard.to_dict(orient=\"records\"),\n    }\n    write_json(output_dir / \"05_model_training_report.json\", report)\n\n\nif __name__ == \"__main__\":\n    main()"
+      },
+      {
+        "path": "api/app.py",
+        "content": "from __future__ import annotations\n\nimport base64\nimport html\nimport json\nimport os\nfrom pathlib import Path\nimport sys\nimport threading\nimport traceback\nimport warnings\nfrom contextlib import redirect_stderr, redirect_stdout\nfrom io import BytesIO, StringIO\n\nimport joblib\nimport matplotlib\nimport pandas as pd\nfrom fastapi import FastAPI, HTTPException, Query\nfrom fastapi.responses import FileResponse, HTMLResponse\nfrom fastapi.staticfiles import StaticFiles\nfrom pydantic import BaseModel, Field\n\n\nmatplotlib.use(\"Agg\")\n\n\nPROJECT_ROOT = Path(__file__).resolve().parents[1]\nFRONTEND_DIR = PROJECT_ROOT / \"frontend\"\nRAPPORT_DIR = PROJECT_ROOT / \"rapport\"\nDATASET_PATH = PROJECT_ROOT / \"data\" / \"processed\" / \"03_training_dataset\" / \"test_data.csv\"\nMODEL_PATH = PROJECT_ROOT / \"artifacts\" / \"05_best_model.joblib\"\nPAYLOAD_PATH = FRONTEND_DIR / \"assets\" / \"data\" / \"dashboard_payload.json\"\nSUMMARY_PATH = FRONTEND_DIR / \"model_summary.json\"\nRAW_NOTEBOOK_PATH = PROJECT_ROOT / \"analysis\" / \"notebooks\" / \"Maintenance_Complete_Pipeline.ipynb\"\nMODELS_DIR = PROJECT_ROOT / \"artifacts\" / \"models\"\n\nclass ModelManager:\n    _instance = None\n    _lock = threading.Lock()\n    \n    def __new__(cls):\n        with cls._lock:\n            if cls._instance is None:\n                cls._instance = super(ModelManager, cls).__new__(cls)\n                cls._instance.models = {}\n                cls._instance.metadata = {}\n            return cls._instance\n\n    def get_available_models(self) -> list[str]:\n        if not MODELS_DIR.exists():\n            return []\n        return [p.stem for p in MODELS_DIR.glob(\"*.joblib\")]\n\n    def load_model(self, model_name: str):\n        if model_name in self.models:\n            return self.models[model_name]\n            \n        path = MODELS_DIR / f\"{model_name}.joblib\"\n        if not path.exists():\n            raise HTTPException(status_code=404, detail=f\"Model {model_name} not found\")"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "datasets": [
+    {
+      "file": "machine_predictive_maintenance.csv",
+      "rows": 10000,
+      "columns": 10,
+      "profile": "machine_predictive_maintenance_profile.json"
+    },
+    {
+      "file": "ai4i_2020_predictive_maintenance.csv",
+      "rows": 10000,
+      "columns": 14,
+      "profile": "ai4i_2020_predictive_maintenance_profile.json"
+    }
+  ]
+}

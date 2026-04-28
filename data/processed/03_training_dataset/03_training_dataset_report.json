@@ -1,0 +1,8 @@
+{
+  "training_rows": 6000,
+  "validation_rows": 2000,
+  "test_rows": 2000,
+  "train_positive_rate": 0.034833333333333334,
+  "validation_positive_rate": 0.0345,
+  "test_positive_rate": 0.035
+}

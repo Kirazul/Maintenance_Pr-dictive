@@ -1,0 +1,64 @@
+[
+  {
+    "step": "data_loading",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.252908",
+    "details": {
+      "files": [
+        "machine_predictive_maintenance.csv",
+        "ai4i_2020_predictive_maintenance.csv"
+      ]
+    }
+  },
+  {
+    "step": "data_cleaning",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.308911",
+    "details": {
+      "shape": [
+        20000,
+        17
+      ]
+    }
+  },
+  {
+    "step": "feature_engineering",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.322931",
+    "details": {
+      "n_features": 0
+    }
+  },
+  {
+    "step": "target_engineering",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.708054",
+    "details": {}
+  },
+  {
+    "step": "merge",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.722067",
+    "details": {
+      "shape": [
+        20000,
+        32
+      ]
+    }
+  },
+  {
+    "step": "data_split",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.756580",
+    "details": {
+      "train_size": 14000,
+      "test_size": 4000
+    }
+  },
+  {
+    "step": "feature_scaling",
+    "status": "completed",
+    "timestamp": "2026-04-13T10:04:15.777586",
+    "details": {}
+  }
+]

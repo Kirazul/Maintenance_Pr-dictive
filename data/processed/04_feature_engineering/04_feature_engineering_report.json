@@ -1,0 +1,26 @@
+{
+  "training_rows": 6000,
+  "numeric_feature_count": 13,
+  "categorical_feature_count": 3,
+  "numeric_features": [
+    "air_temp_k",
+    "process_temp_k",
+    "rotational_speed_rpm",
+    "torque_nm",
+    "tool_wear_min",
+    "temp_delta_k",
+    "power_proxy",
+    "wear_power_ratio",
+    "torque_speed_ratio",
+    "thermal_load",
+    "wear_temp_stress",
+    "high_torque_flag",
+    "low_speed_flag"
+  ],
+  "categorical_features": [
+    "product_type",
+    "source_dataset",
+    "wear_risk_band"
+  ],
+  "positive_rate": 0.034833333333333334
+}
