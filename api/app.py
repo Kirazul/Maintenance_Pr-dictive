@@ -55,9 +55,20 @@ class ModelManager:
         if model_name in self.models:
             return self.models[model_name]
             
-        path = MODELS_DIR / f"{model_name}.joblib"
+        path = (MODELS_DIR / f"{model_name}.joblib").resolve()
+        print(f"DEBUG: Attempting to load model from {path}")
         if not path.exists():
-            raise HTTPException(status_code=404, detail=f"Model {model_name} not found")
+            print(f"DEBUG: Model file not found at {path}")
+            # Fallback to BestModel if GradientBoosting is missing
+            if model_name == "GradientBoosting":
+                fallback_path = (MODELS_DIR / "BestModel.joblib").resolve()
+                if fallback_path.exists():
+                    print(f"DEBUG: Falling back to {fallback_path}")
+                    path = fallback_path
+                else:
+                    raise HTTPException(status_code=404, detail=f"Model {model_name} not found and no fallback available at {path}")
+            else:
+                raise HTTPException(status_code=404, detail=f"Model {model_name} not found at {path}")
             
         artifact = joblib.load(path)
         
@@ -429,7 +440,10 @@ def predict(payload: PredictionRequest, model_name: str = Query(None)) -> dict:
     try:
         artifact = model_manager.load_model(model_name)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error loading model: {str(e)}")
+        import sklearn
+        error_detail = f"Error loading model '{model_name}': {str(e)} (Server sklearn version: {sklearn.__version__})"
+        print(f"CRITICAL: {error_detail}")
+        raise HTTPException(status_code=500, detail=error_detail)
         
     pipeline = artifact["pipeline"]
     threshold = artifact.get("threshold", 0.5)
