@@ -65,6 +65,15 @@ document.querySelectorAll('a[href^="#chapter"], a[href="#code-tab-view"]').forEa
     });
 });
 
+document.querySelectorAll('a[href^="#feat"]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        document.querySelector('[data-target="feature-tab-view"]').click();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 30);
+    });
+});
+
 function setSceneStatus(text) {
     setText('scene-status', text);
 }

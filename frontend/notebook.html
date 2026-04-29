@@ -44,6 +44,7 @@
 
         <div class="book-tabs">
             <button class="book-tab active" data-target="dashboard-tab-view">Overview</button>
+            <button class="book-tab" data-target="feature-tab-view">Feature Dictionary</button>
             <button class="book-tab" data-target="code-tab-view">Code & Execution</button>
         </div>
 
@@ -84,6 +85,142 @@
                         <h2>Operating Threshold Sweep</h2>
                         <p>The selected API threshold is highlighted. Lower thresholds may catch more failures, but can increase false alarms or violate the precision policy.</p>
                         <div id="threshold-grid" class="leaderboard"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="feature-tab-view" class="tab-view">
+            <div class="book-grid">
+                <aside class="book-sidebar glass">
+                    <span class="tag">Feature Guide</span>
+                    <nav class="chapter-nav">
+                        <a href="#feat-raw">Sensors (Raw)</a>
+                        <a href="#feat-engineered">Engineered (New)</a>
+                        <a href="#feat-flags">Cuts & Flags</a>
+                    </nav>
+                </aside>
+
+                <div class="dashboard-shell">
+                    <section id="feat-raw" class="chapter-card glass cinematic-card">
+                        <span class="tag">Raw Sensors</span>
+                        <h2>Standard Input Features</h2>
+                        <p>These are the base sensor readings captured directly from the hardware.</p>
+                        <table class="feature-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Description</th>
+                                    <th>Physical Context</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>air_temp_k</strong></td>
+                                    <td>Air Temperature</td>
+                                    <td>Ambient environmental heat surrounding the machine.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>process_temp_k</strong></td>
+                                    <td>Process Temperature</td>
+                                    <td>Internal heat generated during the machining process.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>rotational_speed_rpm</strong></td>
+                                    <td>Rotational Speed</td>
+                                    <td>The velocity of the spindle/motor in RPM.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>torque_nm</strong></td>
+                                    <td>Torque</td>
+                                    <td>The rotational force applied by the machine.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>tool_wear_min</strong></td>
+                                    <td>Tool Wear</td>
+                                    <td>Cumulative duration the tool has been in active use.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="feat-engineered" class="chapter-card glass cinematic-card">
+                        <span class="tag">Engineered</span>
+                        <h2>Derived Technical Indicators</h2>
+                        <p>These features are calculated to capture non-linear relationships between sensors.</p>
+                        <table class="feature-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Formula</th>
+                                    <th>Signal Goal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>temp_delta_k</strong></td>
+                                    <td>Process - Air Temp</td>
+                                    <td>Measures thermal spread/heat dissipation efficiency.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>power_proxy</strong></td>
+                                    <td>Speed * Torque</td>
+                                    <td>Estimates total energy output/mechanical effort.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>wear_power_ratio</strong></td>
+                                    <td>Wear / Power</td>
+                                    <td>Identifies inefficiency (high wear for low power).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>torque_speed_ratio</strong></td>
+                                    <td>Torque / Speed</td>
+                                    <td>Detects mechanical imbalance or clogging risks.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>thermal_load</strong></td>
+                                    <td>Delta T * Torque</td>
+                                    <td>Captures combined thermal and physical stress.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>wear_temp_stress</strong></td>
+                                    <td>Wear * Delta T</td>
+                                    <td>Accumulated damage under high thermal load.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+
+                    <section id="feat-flags" class="chapter-card glass cinematic-card">
+                        <span class="tag">Policy Logic</span>
+                        <h2>Binarization & Risk Bands</h2>
+                        <p>Turning continuous values into discrete states for cleaner decision making.</p>
+                        <table class="feature-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Logic (Cut)</th>
+                                    <th>Operation Rationale</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>high_torque_flag</strong></td>
+                                    <td>Torque >= 55 Nm</td>
+                                    <td>Marks the mechanical safe-operating limit.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>low_speed_flag</strong></td>
+                                    <td>Speed <= 1400 RPM</td>
+                                    <td>Identifies stalling zones where heat builds up.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>wear_risk_band</strong></td>
+                                    <td>Binned [0, 50, 120, 180+]</td>
+                                    <td>Classifies tool life into action-oriented zones.</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </section>
                 </div>
             </div>

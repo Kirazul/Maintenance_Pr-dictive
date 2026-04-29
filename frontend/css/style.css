@@ -1404,3 +1404,39 @@ select option {
         position: static;
     }
 }
+
+/* Feature Dictionary Styles */
+.feature-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.2rem;
+    font-size: 0.9rem;
+}
+
+.feature-table th, 
+.feature-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+}
+
+.feature-table th {
+    color: var(--muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+}
+
+.feature-table td strong {
+    color: var(--accent);
+    font-family: 'Mono', monospace;
+}
+
+.feature-table tr:last-child td {
+    border-bottom: none;
+}
+
+.feature-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
