@@ -1423,6 +1423,24 @@ select option {
     line-height: 1.5;
 }
 
+.feature-table th:nth-child(1),
+.feature-table td:nth-child(1) {
+    width: 28%;
+    min-width: 180px;
+}
+
+.feature-table th:nth-child(2),
+.feature-table td:nth-child(2) {
+    width: 32%;
+    min-width: 220px;
+}
+
+.feature-table th:nth-child(3),
+.feature-table td:nth-child(3) {
+    width: 40%;
+    min-width: 250px;
+}
+
 .feature-table th {
     color: var(--muted);
     font-weight: 800;
