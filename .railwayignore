@@ -10,7 +10,7 @@ rapport/Technical_Report_Predictive_Maintenance_Final_v2.pdf
 
 # Railway deploys the active production model. Static reports still show the full leaderboard.
 artifacts/models/*
-!artifacts/models/GradientBoosting.joblib
+!artifacts/models/*.joblib
 tools/
 scripts/
 analysis/*.py

@@ -8,6 +8,6 @@ rapport/main.tex
 rapport/Technical_Report_Predictive_Maintenance_Final.pdf
 rapport/Technical_Report_Predictive_Maintenance_Final_v2.pdf
 artifacts/models/*
-!artifacts/models/GradientBoosting.joblib
+!artifacts/models/*.joblib
 tools/
 scripts/

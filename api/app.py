@@ -61,6 +61,10 @@ class ModelManager:
             
         artifact = joblib.load(path)
         
+        # Patch for scikit-learn version compatibility issues (e.g. SimpleImputer _fill_dtype)
+        if "pipeline" in artifact:
+            self._patch_model_compatibility(artifact["pipeline"])
+            
         if "tf_model_path" in artifact:
             # Load TF model
             import tensorflow as tf
@@ -84,6 +88,30 @@ class ModelManager:
             
         self.models[model_name] = artifact
         return artifact
+
+    def _patch_model_compatibility(self, model):
+        """Recursively patch model components for version compatibility (e.g. scikit-learn mismatches)."""
+        # Patch SimpleImputer missing _fill_dtype (common in scikit-learn 1.2/1.3+)
+        if type(model).__name__ == "SimpleImputer":
+            if not hasattr(model, "_fill_dtype"):
+                try:
+                    # In newer sklearn, _fill_dtype is expected during transform
+                    model._fill_dtype = getattr(model, "dtype", None)
+                except Exception:
+                    pass
+        
+        # Recursively explore nested structures
+        if hasattr(model, "steps"):  # Pipeline
+            for _, step in model.steps:
+                self._patch_model_compatibility(step)
+        elif hasattr(model, "transformers_"):  # ColumnTransformer (after fit)
+            for _, transformer, _ in model.transformers_:
+                self._patch_model_compatibility(transformer)
+        elif hasattr(model, "named_transformers_"): # ColumnTransformer (before/during fit)
+            for transformer in model.named_transformers_.values():
+                self._patch_model_compatibility(transformer)
+        elif hasattr(model, "transformer"): # TfidfVectorizer or similar wrappers
+            self._patch_model_compatibility(model.transformer)
 
 model_manager = ModelManager()
 
@@ -415,9 +443,14 @@ def predict(payload: PredictionRequest, model_name: str = Query(None)) -> dict:
     try:
         probability = float(pipeline.predict_proba(frame)[0, 1])
     except Exception as e:
-        # Fallback if prediction fails (e.g. feature mismatch)
-        print(f"Prediction failed for {model_name}: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
+        # Fallback if prediction fails (e.g. feature mismatch or version incompatibility)
+        error_msg = str(e)
+        print(f"Prediction failed for {model_name}: {error_msg}")
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500, 
+            detail=f"Prediction failed: {error_msg}. This often happens due to scikit-learn version mismatch between training and production. The server is attempting to auto-patch common issues."
+        )
         
     prediction = int(probability >= threshold)
     
