@@ -1411,26 +1411,34 @@ select option {
     border-collapse: collapse;
     margin-top: 1.2rem;
     font-size: 0.9rem;
+    table-layout: auto;
 }
 
 .feature-table th, 
 .feature-table td {
-    padding: 1rem;
+    padding: 1.1rem 1rem;
     text-align: left;
     border-bottom: 1px solid var(--line);
+    vertical-align: top;
+    line-height: 1.5;
 }
 
 .feature-table th {
     color: var(--muted);
     font-weight: 800;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid var(--line-strong);
 }
 
 .feature-table td strong {
     color: var(--accent);
     font-family: 'Mono', monospace;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.2rem;
 }
 
 .feature-table tr:last-child td {
@@ -1438,5 +1446,14 @@ select option {
 }
 
 .feature-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Fix for overlapping on smaller screens */
+@media (max-width: 1024px) {
+    .feature-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 }
