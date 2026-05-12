@@ -124,7 +124,7 @@ This project addresses all these challenges with a production-ready pipeline tha
 ### Combined Dataset
 
 - **Total Records**: ~17,800 (after deduplication)
-- **Features**: Type, Air Temp, Process Temp, Rotational Speed, Torque, Tool Wear
+- **Features**: Type, Air Temp, Process Temp, Rotational Speed, Torque, Tool Wear.
 - **Target**: Machine Failure (binary: 0/1)
 
 ### Class Distribution
