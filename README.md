@@ -462,4 +462,4 @@ This project is for educational and demonstration purposes.
 ## Acknowledgments
 
 - AI4I 2020 Predictive Maintenance Dataset
-- Machine Predictive Maintenance Classification Dataset (Kaggle)
+- Machine Predictive Maintenance Classification Dataset (Kaggle).
